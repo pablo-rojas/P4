@@ -14,14 +14,15 @@ cleanup() {
    \rm -f $base.*
 }
 
-if [[ $# != 3 ]]; then
-   echo "$0 mfcc_order input.wav output.lp"
+if [[ $# != 4 ]]; then
+   echo "$0 mfcc_order mfcc_channelOrder input.wav output.lp"
    exit 1
 fi
 
 mfcc_order=$1
-inputfile=$2
-outputfile=$3
+mfcc_channelOrder=$2
+inputfile=$3
+outputfile=$4
 
 UBUNTU_SPTK=1
 if [[ $UBUNTU_SPTK == 1 ]]; then
@@ -40,7 +41,7 @@ fi
 
 # Main command for feature extration
 sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WINDOW -l 240 -L 240 |
-	$MFCC -a 0.97 -c 22 -e 1 -s 16 -l 240 -L 256 -m $mfcc_order -n 20 -w 1 > $base.lp
+	$MFCC -a 0.97 -c 22 -e 1 -s 16 -l 240 -L 256 -m $mfcc_order -n $mfcc_channelOrder -w 1 > $base.lp
 
 # Our array files need a header with the number of cols and rows:
 ncol=$((lpc_order+1)) # lpc p =>  (gain a1 a2 ... ap) 

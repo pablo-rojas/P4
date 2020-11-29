@@ -3,5 +3,5 @@ lp/
 lpcc/
 mfcc/
 gmm/
-
+bin/
 !src/gmm

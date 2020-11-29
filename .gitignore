@@ -4,4 +4,8 @@ lpcc/
 mfcc/
 gmm/
 bin/
+<<<<<<< HEAD
+=======
+
+>>>>>>> 18efad35ea29998da7d838f097bc8d7fd0d2fdb1
 !src/gmm

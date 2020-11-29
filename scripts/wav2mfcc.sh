@@ -15,11 +15,11 @@ cleanup() {
 }
 
 if [[ $# != 3 ]]; then
-   echo "$0 lpc_order input.wav output.lp"
+   echo "$0 mfcc_order input.wav output.lp"
    exit 1
 fi
 
-lpc_order=$1
+mfcc_order=$1
 inputfile=$2
 outputfile=$3
 
@@ -29,18 +29,18 @@ if [[ $UBUNTU_SPTK == 1 ]]; then
    X2X="sptk x2x"
    FRAME="sptk frame"
    WINDOW="sptk window"
-   LPC="sptk lpc"
+   MFCC="sptk mfcc"
 else
    # or install SPTK building it from its source
    X2X="x2x"
    FRAME="frame"
    WINDOW="window"
-   LPC="lpc"
+   MFCC="mfcc"
 fi
 
 # Main command for feature extration
 sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WINDOW -l 240 -L 240 |
-	$LPC -l 240 -m $lpc_order > $base.lp
+	$MFCC -a 0.97 -c 22 -e 1 -s 16 -l 240 -L 256 -m $mfcc_order -n 20 -w 1 > $base.lp
 
 # Our array files need a header with the number of cols and rows:
 ncol=$((lpc_order+1)) # lpc p =>  (gain a1 a2 ... ap) 
@@ -51,4 +51,3 @@ echo $nrow $ncol | $X2X +aI > $outputfile
 cat $base.lp >> $outputfile
 
 exit
-

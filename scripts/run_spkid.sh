@@ -98,7 +98,9 @@ compute_lp() {
 
     # cepstrum_order = 1.5*lpc_order
 compute_lpcc() {
-    for filename in $(cat $lists/class/all.train $lists/class/all.test); do
+    db=$1
+    shift
+    for filename in $(cat $*); do
         mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
         EXEC="wav2lpcc 20 30 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
         echo $EXEC && $EXEC || exit 1
@@ -203,7 +205,7 @@ for cmd in $*; do
 	   # The list of legitimate users is lists/final/verif.users, the list of files to be verified
 	   # is lists/final/verif.test, and the list of users claimed by the test files is
 	   # lists/final/verif.test.candidates
-       # compute_$FEAT $final $lists/final/verif.test
+       compute_$FEAT $final $lists/final/verif.test
 
        # Pick up only the score threshold selected by the verif_err option
        export thres=$(fgrep THR: $w/verif_${FEAT}_${name_exp}.res | cut -d: -f 2)

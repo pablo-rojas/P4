@@ -89,7 +89,9 @@ fi
 # - Select (or change) different features, options, etc. Make you best choice and try several options.
 
 compute_lp() {
-    for filename in $(cat $lists/class/all.train $lists/class/all.test); do
+    db=$1
+    shift
+    for filename in $(cat $*); do
         mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
         EXEC="wav2lp 20 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
         echo $EXEC && $EXEC || exit 1
@@ -196,7 +198,7 @@ for cmd in $*; do
 	   # The list of users is the same as for the classification task. The list of files to be
 	   # recognized is lists/final/class.test
        compute_$FEAT $final $lists/final/class.test
-       (gmm_classify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list  $lists/final/class.test | tee class_test.log) || exit 1
+       (gmm_classify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list  $lists/final/class.test | tee class_test_$FEAT.log) || exit 1
    
    elif [[ $cmd == finalverif ]]; then
        ## @file
@@ -213,7 +215,7 @@ for cmd in $*; do
        (gmm_verify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm -w $world $lists/gmm.list $lists/final/verif.test $lists/final/verif.test.candidates | tee $w/finalverif_${FEAT}_${name_exp}.log) || exit 1
        perl -ane 'print "$F[0]\t$F[1]\t";
         if ($F[2] > $ENV{thres}) {print "1\tThreshold = $ENV{thres}\n"}
-        else {print "0\tThreshold = $ENV{thres}\n"}' $w/finalverif_${FEAT}_${name_exp}.log > verif_test.log
+        else {print "0\tThreshold = $ENV{thres}\n"}' $w/finalverif_${FEAT}_${name_exp}.log > verif_test_$FEAT.log
 
    # If the command is not recognize, check if it is the name
    # of a feature and a compute_$FEAT function exists.

@@ -59,8 +59,10 @@ int main(int argc, const char *argv[]) {
     gmm.random_init(data, nmix);
     break;
   case 1:
+    gmm.vq_lbg(data, nmix, em_iterations, em_threshold, verbose);
     break;
   case 2:
+    gmm.em_split(data, nmix, em_iterations, em_threshold, verbose);
     break;
   default:
     ;

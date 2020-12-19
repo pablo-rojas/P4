@@ -4,5 +4,6 @@ lpcc/
 mfcc/
 gmm/
 bin/
+work/
 
 !src/gmm

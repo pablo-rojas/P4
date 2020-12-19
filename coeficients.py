@@ -5,7 +5,6 @@ import struct
 
 def cms(matrix):
     for x in matrix:
-        print(x)
         m = statistics.mean(x)
         for y in x:
             y -= m
@@ -59,7 +58,6 @@ else:
     c_t = list(zip(*c))   
     cms(c_t)
     cms = list(zip(*c_t))
-    print(cms)
 
     with open(str(sys.argv[2]), 'wb') as fw:
         data = struct.pack(format0, size[0], size[1])

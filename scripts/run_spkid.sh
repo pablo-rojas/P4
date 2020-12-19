@@ -19,6 +19,7 @@ db=spk_8mu/speecon
 final=spk_8mu/sr_test
 world=users
 thres=40
+cms=cms
 
 # ------------------------
 # Usage
@@ -94,6 +95,7 @@ compute_lp() {
     for filename in $(cat $*); do
         mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
         EXEC="wav2lp 20 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
+        python3 coeficients.py $w/$FEAT/$filename.$FEAT $w/${FEAT}/$filename.${FEAT}
         echo $EXEC && $EXEC || exit 1
     done
 }
@@ -105,6 +107,7 @@ compute_lpcc() {
     for filename in $(cat $*); do
         mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
         EXEC="wav2lpcc 20 30 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
+        python3 coeficients.py $w/$FEAT/$filename.$FEAT $w/${FEAT}/$filename.${FEAT}
         echo $EXEC && $EXEC || exit 1
     done
 }
@@ -115,6 +118,7 @@ compute_mfcc() {
     for filename in $(cat $*); do
         mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
         EXEC="wav2mfcc 13 40 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
+        python3 coeficients.py $w/$FEAT/$filename.$FEAT $w/${FEAT}/$filename.${FEAT}
         echo $EXEC && $EXEC || exit 1
     done
 }
@@ -147,7 +151,7 @@ for cmd in $*; do
        for dir in $db/BLOCK*/SES* ; do
            name=${dir/*\/}
            echo $name ----
-           gmm_train  -v 1 -T 0.001 -N 80 -m 64 -i 1 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train || exit 1
+           gmm_train  -v 1 -T 0.001 -N 8 -m 10 -i 1 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train || exit 1
            echo
        done
    elif [[ $cmd == test ]]; then

@@ -107,6 +107,7 @@ ejercicios indicados.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
   + ¿Cuál de ellas le parece que contiene más información?
+  
   Los parametros MFCC son los que aprecen contener más información. Su mayor dispersion nos indica la 
   independencia de unos valores respecto a otros, lo cual nos indica que cada coeficiente MFCC nos aporta
   mucha más información que uno de LP o LPCC
@@ -118,11 +119,13 @@ ejercicios indicados.
   |------------------------|:------:|:------:|:------:|
   | &rho;<sub>x</sub>[2,3] |-8.22944|0.198087|0.056964|
   
-  + Compare los resultados de <code>pearson</code> con los obtenidos gráficamente.
+  + Compare los resultados de <code>pearson</code> con los obtenidos gráficamente
+  
   Estos resultados confirman lo obtenido graficamente, pues muestra que los coeficientes mfcc son los que 
   tienen una correación menor, o dicho de otra manera, mayor independencia.
   
 - Según la teoría, ¿qué parámetros considera adecuados para el cálculo de los coeficientes LPCC y MFCC?
+
   Para los coefientes LPCC, segun la teoría deberíamos usar 13 coeficientes MFCC con entre 24 y 40 filtros 
   frecuenciales. Para los coeficientes LPCC, deberíamos usar 20 coeficientes con un cepstrum del orden 30.
 
@@ -158,6 +161,10 @@ Complete el código necesario para realizar verificación del locutor y optimice
   de verificación de SPEECON. La tabla debe incluir el umbral óptimo, el número de falsas alarmas y de
   pérdidas, y el score obtenido usando la parametrización que mejor resultado le hubiera dado en la tarea
   de reconocimiento.
+  
+  |                        | LP     | LPCC   | MFCC   |
+  |------------------------|:------:|:------:|:------:|
+  | class_err              |-26.37% |1.15%   |1.15%   |
  
 ### Test final
 

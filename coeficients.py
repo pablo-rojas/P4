@@ -62,7 +62,7 @@ else:
     with open(str(sys.argv[2]), 'wb') as fw:
         data = struct.pack(format0, size[0], size[1])
         fw.write(data)
-        for line in c:
+        for line in cms:
             for n in line:
                 data = struct.pack('f', n)
                 fw.write(data)

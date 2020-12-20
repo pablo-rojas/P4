@@ -19,7 +19,7 @@ db=spk_8mu/speecon
 final=spk_8mu/sr_test
 world=users
 thres=40
-cms=cms
+cms =cms
 
 # ------------------------
 # Usage
@@ -96,7 +96,11 @@ compute_lp() {
         mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
         EXEC="wav2lp 20 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
         echo $EXEC && $EXEC || exit 1
+<<<<<<< HEAD
         python3 coeficients.py $w/$FEAT/$filename.$FEAT $w/${FEAT}/$filename.${FEAT}
+=======
+        python3 coeficients.py $w/$FEAT/$filename.$FEAT $w/$FEAT/$filename.$FEAT
+>>>>>>> 674baf405c0587ff36e2bda66ed242dd2713367c
     done
 }
 
@@ -108,7 +112,11 @@ compute_lpcc() {
         mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
         EXEC="wav2lpcc 20 30 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
         echo $EXEC && $EXEC || exit 1
+<<<<<<< HEAD
         python3 coeficients.py $w/$FEAT/$filename.$FEAT $w/${FEAT}/$filename.${FEAT}
+=======
+        python3 coeficients.py $w/$FEAT/$filename.$FEAT $w/$FEAT/$filename.$FEAT
+>>>>>>> 674baf405c0587ff36e2bda66ed242dd2713367c
     done
 }
 
@@ -119,7 +127,11 @@ compute_mfcc() {
         mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
         EXEC="wav2mfcc 13 40 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
         echo $EXEC && $EXEC || exit 1
+<<<<<<< HEAD
         python3 coeficients.py $w/$FEAT/$filename.$FEAT $w/${FEAT}/$filename.${FEAT}
+=======
+        python3 coeficients.py $w/$FEAT/$filename.$FEAT $w/$FEAT/$filename.$FEAT
+>>>>>>> 674baf405c0587ff36e2bda66ed242dd2713367c
     done
 }
 

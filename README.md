@@ -166,11 +166,8 @@ Complete el código necesario para realizar verificación del locutor y optimice
   de reconocimiento.
   
   | Umbral            | 0.0506260071085935 |
-  |-------------------|--------------------|
   | nº Falsas Alarmas | 0/1000 = 0.0000    |
-  |-------------------|--------------------|
   | nº Perdidas       | 42/250 = 0.1680    |
-  |-------------------|--------------------|
   | Score             | 16.8               |
  
 ### Test final

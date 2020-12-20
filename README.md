@@ -85,13 +85,16 @@ ejercicios indicados.
 - Inserte una imagen mostrando la dependencia entre los coeficientes 2 y 3 de las tres parametrizaciones
   para todas las señales de un locutor.
   
-    Dependencia entre los coeficientes LP 2 y 3
+  Dependencia entre los coeficientes LP 2 y 3.
+  
   <img src="lp_SES000.png" align="center">
 
-  Dependencia entre los coeficientes LPCC 2 y 3
+  Dependencia entre los coeficientes LPCC 2 y 3.
+  
   <img src="lpcc_SES000.png" align="center">
 
-  Dependencia entre los coeficientes MFCC 2 y 3
+  Dependencia entre los coeficientes MFCC 2 y 3.
+  
   <img src="mfcc_SES000.png" align="center">
   
   + Indique **todas** las órdenes necesarias para obtener las gráficas a partir de las señales 

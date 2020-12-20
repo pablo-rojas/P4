@@ -5,5 +5,6 @@ mfcc/
 gmm/
 bin/
 work/
+work.rar
 
 !src/gmm

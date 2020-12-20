@@ -175,9 +175,11 @@ Complete el código necesario para realizar verificación del locutor y optimice
 
 - Adjunte, en el repositorio de la práctica, los ficheros `class_test.log` y `verif_test.log` 
   correspondientes a la evaluación *ciega* final.
-
+	
 ### Trabajo de ampliación.
 
 - Recuerde enviar a Atenea un fichero en formato zip o tgz con la memoria (en formato PDF) con el trabajo 
   realizado como ampliación, así como los ficheros `class_ampl.log` y/o `verif_ampl.log`, obtenidos como 
   resultado del mismo.
+  
+  Si bien esta parte correspondería a la ampliación, se puede encontrar un script de python con el nombre de coeficients.py que calcula el CMS de un vecotr de coeficientes cepstrales. Además, en este script tambien estan implementadas las funciones necesarias para calcular los coeficientes delta, tambien de la ampliación.

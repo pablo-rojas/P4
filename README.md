@@ -164,7 +164,7 @@ Complete el código necesario para realizar verificación del locutor y optimice
   
   |                        | LP     | LPCC   | MFCC   |
   |------------------------|:------:|:------:|:------:|
-  | class_err              |-26.37% |1.15%   |1.15%   |
+  | class_err              | 26.37% | 1.15%  | 1.15%  |
  
 ### Test final
 

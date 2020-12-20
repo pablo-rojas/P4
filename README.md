@@ -33,13 +33,13 @@ ejercicios indicados.
   principal (`sox`, `$X2X`, `$FRAME`, `$WINDOW` y `$LPC`). Explique el significado de cada una de las 
   opciones empleadas y de sus valores.
 
-    * **sox**: SoX es un comando de shell que permite leer y escribir ficheros de audio, de los fomratos mas populares, puede, de manera opcional aplicar efectos en estos. Como combinar distintintos fuentes de input, sintetizar el audio, y en muchos sistemas actua de forma general como un reproductor de audio o para grabar multiples pistas.
+    * **sox**: Comando de shell que permite leer y escribir ficheros de audio, de los fomratos mas populares, puede, de manera opcional aplicar efectos en estos. Como combinar distintintos fuentes de input, sintetizar el audio, y en muchos sistemas actua de forma general como un reproductor de audio o para grabar multiples pistas.
     Nosotros hemos usado en el fichero `wav2lp`:
       - El formato con la opción `-t` seleccionando _raw_ es decir, le decimos que tanto el inpput como el output queremos que sea del tipo raw.
       - El tipo codificación de los datos con la opción `-e` selccionando _signed_ que són signed integers.
       - En ell tamaño con `-b` hemos puesto 16. Indicando que el tamaño cada trama codificada resultante ha de ser de 16 bits.
 
-    * **X2X**: Es una función de SPTK, que permite transformar los datos de una input a otro tipo de datos, como se puede ver por el nombre, de los datos X 2 (to) los datos X.
+    * **X2X**: Función de SPTK, que permite transformar los datos de una input a otro tipo de datos, como se puede ver por el nombre, de los datos X 2 (to) los datos X.
       - Hemos seleccionado `+sf`, es decir que de datos _short_ (2 bytes) pase a _float_ (4 bytes).
 
     * **Frame**: Función de SPTK que convierte la sequencia de datos en input, a una serie de tramas de periodo P, puede ser que estas se sobrepongan entre ellas.
@@ -80,14 +80,28 @@ ejercicios indicados.
   El pipeline usado el el siguente:
   `sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WINDOW -l 240 -L 240 |`
 	`$MFCC -a 0.97 -c 22 -e 1 -s 8 -l 240 -L 256 -m $mfcc_order -n $mfcc_channelOrder -w 1 > $base.mfcc`
-
 ### Extracción de características.
 
 - Inserte una imagen mostrando la dependencia entre los coeficientes 2 y 3 de las tres parametrizaciones
   para todas las señales de un locutor.
   
+    Dependencia entre los coeficientes LP 2 y 3
+  <img src="lp_SES000.png" align="center">
+
+  Dependencia entre los coeficientes LPCC 2 y 3
+  <img src="lpcc_SES000.png" align="center">
+
+  Dependencia entre los coeficientes MFCC 2 y 3
+  <img src="mfcc_SES000.png" align="center">
+  
   + Indique **todas** las órdenes necesarias para obtener las gráficas a partir de las señales 
     parametrizadas.
+    <code>
+    plot_gmm_feat -x 2 -y 3 work/gmm/lp/SES000.gmm work/lp/BLOCK00/SES000/*
+    plot_gmm_feat -x 2 -y 3 work/gmm/lpcc/SES000.gmm work/lpcc/BLOCK00/SES000/*
+    plot_gmm_feat -x 2 -y 3 work/gmm/mfcc/SES000.gmm work/mfcc/BLOCK00/SES000/*
+    </code>
+    
   + ¿Cuál de ellas le parece que contiene más información?
 
 - Usando el programa <code>pearson</code>, obtenga los coeficientes de correlación normalizada entre los
@@ -98,6 +112,9 @@ ejercicios indicados.
   | &rho;<sub>x</sub>[2,3] |      |      |      |
   
   + Compare los resultados de <code>pearson</code> con los obtenidos gráficamente.
+    Los parametros MFCC son los que aprecen contener más información. Su mayor dispersion nos indica la 
+  independencia de unos valores respecto a otros, lo cual nos indica que cada coeficiente MFCC nos aporta
+  mucha más información que uno de LP o LPCC.
   
 - Según la teoría, ¿qué parámetros considera adecuados para el cálculo de los coeficientes LPCC y MFCC?
 

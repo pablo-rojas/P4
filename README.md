@@ -35,51 +35,51 @@ ejercicios indicados.
 
     * **sox**: SoX es un comando de shell que permite leer y escribir ficheros de audio, de los fomratos mas populares, puede, de manera opcional aplicar efectos en estos. Como combinar distintintos fuentes de input, sintetizar el audio, y en muchos sistemas actua de forma general como un reproductor de audio o para grabar multiples pistas.
     Nosotros hemos usado en el fichero `wav2lp`:
-      - El formato con la opción -t seleccionando _raw_ es decir, le decimos que tanto el inpput como el output queremos que sea del tipo raw.
-      - El tipo codificación de los datos con la opción -e selccionando _signed_ que són signed integers.
-      - En ell tamaño con -b hemos puesto 16. Indicando que el tamaño cada trama codificada resultante ha de ser de 16 bits.
+      - El formato con la opción `-t` seleccionando _raw_ es decir, le decimos que tanto el inpput como el output queremos que sea del tipo raw.
+      - El tipo codificación de los datos con la opción `-e` selccionando _signed_ que són signed integers.
+      - En ell tamaño con `-b` hemos puesto 16. Indicando que el tamaño cada trama codificada resultante ha de ser de 16 bits.
 
-    * **X2X**: X2X es una función de SPTK, que permite transformar los datos de una input a otro tipo de datos, como se puede ver por el nombre, de los datos X 2 (to) los datos X.
-      - Hemos seleccionado +sf, es decir que de datos short (2 bytes) pase a float (4 bytes).
+    * **X2X**: Es una función de SPTK, que permite transformar los datos de una input a otro tipo de datos, como se puede ver por el nombre, de los datos X 2 (to) los datos X.
+      - Hemos seleccionado `+sf`, es decir que de datos _short_ (2 bytes) pase a _float_ (4 bytes).
 
     * **Frame**: Función de SPTK que convierte la sequencia de datos en input, a una serie de tramas de periodo P, puede ser que estas se sobrepongan entre ellas.
-      - En la opción -l 240, que es el tamaño que queremos en las tramas resultantes.
-      - En -p, emos puesto 80, que significa que el periodo de las tramas resultante es de 80, podemos ver que se sobreponen.
+      - En la opción `-l` 240, que es el tamaño que queremos en las tramas resultantes.
+      - En `-p`, emos puesto 80, que significa que el periodo de las tramas resultante es de 80, podemos ver que se sobreponen.
     
     * **Window**: Función de SPTK que multiplpica elemento por elemento el input por una ventana, parametrizada en las opciones.
-      - En la opción -l hemos puesto 240, que es el tamaño de la trama de input.
-      - En el tamaño de la trama de ouput hemos puesto -L 240, por tanto no recortamos.
-      - En la opción -w que es el tipo de ventana, no hemos puesto nada, por tanto se aplica la ventana por defecto, _Blackman_.
+      - En la opción `-l` hemos puesto 240, que es el tamaño de la trama de input.
+      - En el tamaño de la trama de ouput hemos puesto `-L` 240, por tanto no recortamos.
+      - En la opción `-w` que es el tipo de ventana, no hemos puesto nada, por tanto se aplica la ventana por defecto, _Blackman_.
     
     * **LPC**: Función de SPTK que calcula los coeficientes lpc de longitud L del fichero de input, pasando el resultado en output.
-      - Opción -l, longitud de la trama: 240 (como hemos puesto anteriormente).
-      - Opción -m, que indica el orden de los coeficientes, lo pasasmos con una varibale que la tenemos fijada a 20.
+      - Opción `-l`, longitud de la trama: 240 (como hemos puesto anteriormente).
+      - Opción `-m`, que indica el orden de los coeficientes, lo pasasmos con una varibale que la tenemos fijada a 20.
 
 - Explique el procedimiento seguido para obtener un fichero de formato *fmatrix* a partir de los ficheros de
   salida de SPTK (líneas 45 a 47 del script `wav2lp.sh`).
 
-  El proceso es el siguente, primero definimos el nuemro de columnas, ncol como el orden de los coeficientes lpc mas uno, ncol=lpc_order+1 ya que el primer valor que devuelve la función LPC corresponde a la ganancia y no al primer coeficiente, estos empiezan el segundo.
-  Ahora definimos el nuemro de filas nrow, llamando al X2X +fa para pasar de float a ASCII del fichero $base.lp del cual solo imprimimos las lineas con wc -l y usamos perl con -ne que ejecuta en bucle un print de $_/'$ncol' es decir que printe para cada fila (row) la columnas que hay en fichero $base.lp y luego hace \n para pasar a la siguente linea y volver para tantas lineas (rows) como tenga $base-lp.
+  El proceso es el siguente, primero definimos el nuemro de columnas, `ncol` como el orden de los coeficientes LPC mas uno, `ncol=lpc_order+1` ya que el primer valor que devuelve la función LPC corresponde a la ganancia y no al primer coeficiente, estos empiezan el segundo.
+  Ahora definimos el nuemro de filas nrow, llamando al `X2X +fa` para pasar de float a ASCII del fichero $base.lp del cual solo imprimimos las lineas con `wc -l` y usamos perl con `-ne` que ejecuta en bucle un print de `$_/'$ncol'` es decir que printe para cada fila (row) la columnas que hay en fichero `$base.lp` y luego hace `\n` para pasar a la siguente linea y volver para tantas lineas (rows) como tenga `$base-lp`.
 
   * ¿Por qué es conveniente usar este formato (u otro parecido)? Tenga en cuenta cuál es el formato de
     entrada y cuál es el de resultado.
 
     El fomato en forma de _fmatrix_ es conveniente ya que para cada vez que calculamos los coeficientes LPC se nos devuelve un vector, y como tenemos que realizar este calculo muchas veces, ponerlo en formato matriz es ideal: 
-    Para un locutor que tiene mcuhos audios, tenemos solo un fichero .lp para cada audio, aunque tengamos mas de una trama por audio, porque lo guardamos en forma de matriz, sinó obtendriamos un fichero distinto .lp para cada trama de cada audio de cada locutor, que són demasiados arichivos.
+    Para un locutor que tiene mcuhos audios, tenemos solo un fichero `.lp` para cada audio, aunque tengamos mas de una trama por audio, porque lo guardamos en forma de matriz, sinó obtendriamos un fichero distinto `.lp` para cada trama de cada audio de cada locutor, que són demasiados arichivos.
 
 - Escriba el *pipeline* principal usado para calcular los coeficientes cepstrales de predicción lineal
   (LPCC) en su fichero <code>scripts/wav2lpcc.sh</code>:
 
   El pipeline usado el el siguente:
-  sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WINDOW -l 240 -L 240 -w 0 |
-	$LPC -l 240 -m $lpc_order | $LPCC -m $lpc_order -M $cepstrum_order > $base.lpcc
+  `sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WINDOW -l 240 -L 240 -w 0 |`
+	`$LPC -l 240 -m $lpc_order | $LPCC -m $lpc_order -M $cepstrum_order > $base.lpcc`
 
 - Escriba el *pipeline* principal usado para calcular los coeficientes cepstrales en escala Mel (MFCC) en su
   fichero <code>scripts/wav2mfcc.sh</code>:
 
   El pipeline usado el el siguente:
-  sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WINDOW -l 240 -L 240 |
-	$MFCC -a 0.97 -c 22 -e 1 -s 8 -l 240 -L 256 -m $mfcc_order -n $mfcc_channelOrder -w 1 > $base.mfcc
+  `sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WINDOW -l 240 -L 240 |`
+	`$MFCC -a 0.97 -c 22 -e 1 -s 8 -l 240 -L 256 -m $mfcc_order -n $mfcc_channelOrder -w 1 > $base.mfcc`
 
 ### Extracción de características.
 

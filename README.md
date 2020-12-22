@@ -106,8 +106,21 @@ ejercicios indicados.
   
   <img src="mfcc_SES000.png" align="center">
   
+  Dependencia entre los coeficientes LP 2 y 3.
+  
+  <img src="lp_SES000.png" align="center">
+
+  Dependencia entre los coeficientes LPCC 2 y 3.
+  
+  <img src="lpcc_SES000.png" align="center">
+
+  Dependencia entre los coeficientes MFCC 2 y 3.
+  
+  <img src="mfcc_SES000.png" align="center">
+  
   + Indique **todas** las órdenes necesarias para obtener las gráficas a partir de las señales 
     parametrizadas.
+<<<<<<< HEAD
 <<<<<<< HEAD
 
     <code>
@@ -121,6 +134,8 @@ ejercicios indicados.
   independencia de unos valores respecto a otros, lo cual nos indica que cada coeficiente MFCC nos aporta
   mucha más información que uno de LP o LPCC.
 =======
+=======
+>>>>>>> 162222c0b80089861ef20f65fbbde394dd632b59
     
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
   plot_gmm_feat -x 2 -y 3 work/gmm/lp/SES000.gmm work/lp/BLOCK00/SES000/*
@@ -133,17 +148,29 @@ ejercicios indicados.
   Los parametros MFCC son los que aprecen contener más información. Su mayor dispersion nos indica la 
   independencia de unos valores respecto a otros, lo cual nos indica que cada coeficiente MFCC nos aporta
   mucha más información que uno de LP o LPCC
+<<<<<<< HEAD
+>>>>>>> 162222c0b80089861ef20f65fbbde394dd632b59
+=======
 >>>>>>> 162222c0b80089861ef20f65fbbde394dd632b59
 
 - Usando el programa <code>pearson</code>, obtenga los coeficientes de correlación normalizada entre los
   parámetros 2 y 3 para un locutor, y rellene la tabla siguiente con los valores obtenidos.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   |                        | LP   | LPCC | MFCC |
   |------------------------|:----:|:----:|:----:|
   | &rho;<sub>x</sub>[2,3] | -8.22944     | 0.198087     | 0.0569638     |
   
   + Compare los resultados de <code>pearson</code> con los obtenidos gráficamente.
+=======
+  |                        | LP     | LPCC   | MFCC   |
+  |------------------------|:------:|:------:|:------:|
+  | &rho;<sub>x</sub>[2,3] |-8.22944|0.198087|0.056964|
+  
+  + Compare los resultados de <code>pearson</code> con los obtenidos gráficamente
+  
+>>>>>>> 162222c0b80089861ef20f65fbbde394dd632b59
 =======
   |                        | LP     | LPCC   | MFCC   |
   |------------------------|:------:|:------:|:------:|
@@ -162,6 +189,9 @@ ejercicios indicados.
   Para los coefientes LPCC, segun la teoría deberíamos usar 13 coeficientes MFCC con entre 24 y 40 filtros 
   frecuenciales. Para los coeficientes LPCC, deberíamos usar 20 coeficientes con un cepstrum del orden 30.
 
+  Para los coefientes LPCC, segun la teoría deberíamos usar 13 coeficientes MFCC con entre 24 y 40 filtros 
+  frecuenciales. Para los coeficientes LPCC, deberíamos usar 20 coeficientes con un cepstrum del orden 30.
+
 ### Entrenamiento y visualización de los GMM.
 
 Complete el código necesario para entrenar modelos GMM.
@@ -172,11 +202,18 @@ Complete el código necesario para entrenar modelos GMM.
   
   <img src="MFCC_01_SES000_SES000.png" align="center">
   
+  <img src="MFCC_01_SES000_SES000.png" align="center">
+  
 - Inserte una gráfica que permita comparar los modelos y poblaciones de dos locutores distintos (la gŕafica
   de la página 20 del enunciado puede servirle de referencia del resultado deseado). Analice la capacidad
   del modelado GMM para diferenciar las señales de uno y otro.
 <<<<<<< HEAD
+<<<<<<< HEAD
   <img src="4_subplot.png" align="center">
+=======
+  
+  <img src="4_subplot.PNG" align="center">
+>>>>>>> 162222c0b80089861ef20f65fbbde394dd632b59
 =======
   
   <img src="4_subplot.PNG" align="center">

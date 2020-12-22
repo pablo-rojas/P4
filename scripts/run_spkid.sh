@@ -14,7 +14,7 @@
 # - db:       directory of the speecon database 
 lists=lists
 w=work
-name_exp=one
+name_exp=five
 db=spk_8mu/speecon
 final=spk_8mu/sr_test
 world=users
@@ -96,11 +96,7 @@ compute_lp() {
         mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
         EXEC="wav2lp 20 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
         echo $EXEC && $EXEC || exit 1
-<<<<<<< HEAD
-        python3 coeficients.py $w/$FEAT/$filename.$FEAT $w/${FEAT}/$filename.${FEAT}
-=======
         python3 coeficients.py $w/$FEAT/$filename.$FEAT $w/$FEAT/$filename.$FEAT
->>>>>>> 674baf405c0587ff36e2bda66ed242dd2713367c
     done
 }
 
@@ -112,11 +108,7 @@ compute_lpcc() {
         mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
         EXEC="wav2lpcc 20 30 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
         echo $EXEC && $EXEC || exit 1
-<<<<<<< HEAD
-        python3 coeficients.py $w/$FEAT/$filename.$FEAT $w/${FEAT}/$filename.${FEAT}
-=======
         python3 coeficients.py $w/$FEAT/$filename.$FEAT $w/$FEAT/$filename.$FEAT
->>>>>>> 674baf405c0587ff36e2bda66ed242dd2713367c
     done
 }
 
@@ -127,11 +119,7 @@ compute_mfcc() {
         mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
         EXEC="wav2mfcc 13 40 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
         echo $EXEC && $EXEC || exit 1
-<<<<<<< HEAD
-        python3 coeficients.py $w/$FEAT/$filename.$FEAT $w/${FEAT}/$filename.${FEAT}
-=======
         python3 coeficients.py $w/$FEAT/$filename.$FEAT $w/$FEAT/$filename.$FEAT
->>>>>>> 674baf405c0587ff36e2bda66ed242dd2713367c
     done
 }
 
@@ -163,7 +151,7 @@ for cmd in $*; do
        for dir in $db/BLOCK*/SES* ; do
            name=${dir/*\/}
            echo $name ----
-           gmm_train  -v 1 -T 0.001 -N 8 -m 10 -i 1 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train || exit 1
+           gmm_train  -v 1 -T 0.001 -N 80 -m 64 -i 1 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train || exit 1
            echo
        done
    elif [[ $cmd == test ]]; then
@@ -186,7 +174,7 @@ for cmd in $*; do
 	   # Implement 'trainworld' in order to get a Universal Background Model for speaker verification
 	   #
 	   # - The name of the world model will be used by gmm_verify in the 'verify' command below.
-       gmm_train  -v 1 -T 0.001 -N 80 -m 256 -i 1 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$world.gmm $lists/verif/$world.train || exit 1
+       gmm_train  -v 1 -T 0.001 -N 80 -m 512 -i 1 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$world.gmm $lists/verif/$world.train || exit 1
    elif [[ $cmd == verify ]]; then
        ## @file
 	   # \TODO 

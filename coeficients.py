@@ -51,7 +51,7 @@ else:
         format1 = str(size[1]) + 'f'
         c = []
         header = []
-        for line in range(0, size[0]-1):
+        for line in range(0, size[0]):
             data = f.read(struct.calcsize(format1))
             c.append(struct.unpack(format1, data))
     

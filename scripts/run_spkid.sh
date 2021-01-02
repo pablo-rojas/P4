@@ -19,7 +19,6 @@ db=spk_8mu/speecon
 final=spk_8mu/sr_test
 world=users
 thres=40
-cms =cms
 
 # ------------------------
 # Usage
@@ -154,9 +153,16 @@ for cmd in $*; do
            gmm_train  -v 1 -T 0.001 -N 80 -m 64 -i 1 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train || exit 1
            echo
        done
+
+   elif [[ $cmd == train_nn ]]; then
+        python3 pav_spkid_pytorch/train_nn.py --save_path work/mcp --tr_list_file lists/class/all.train --va_list_file lists/class/all.test --db_path work/${FEAT} --spk2idx lists/spk2idx.json --ext ${FEAT} --lr 0.0001 --hsize 500 --epoch 40 --momentum 0.7
+
    elif [[ $cmd == test ]]; then
        (gmm_classify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list  $lists/class/all.test | tee $w/class_${FEAT}_${name_exp}.log) || exit 1
-
+    
+   elif [[ $cmd == test_nn ]]; then
+        python3 pav_spkid_pytorch/test_nn.py --te_list_file lists/class/all.train --db_path work/${FEAT} --ext ${FEAT} --weights_ckpt work/mcp/e30_weights.ckpt --train_cfg work/mcp/train.opts --log_file $w/class_${FEAT}_nn_${name_exp}.log
+   
    elif [[ $cmd == classerr ]]; then
        if [[ ! -s $w/class_${FEAT}_${name_exp}.log ]] ; then
           echo "ERROR: $w/class_${FEAT}_${name_exp}.log not created"
@@ -168,6 +174,19 @@ for cmd in $*; do
                  if ($1 == $2) {$ok++}
                  else {$err++}
                  END {printf "nerr=%d\tntot=%d\terror_rate=%.2f%%\n", ($err, $ok+$err, 100*$err/($ok+$err))}' $w/class_${FEAT}_${name_exp}.log | tee -a $w/class_${FEAT}_${name_exp}.log
+
+   elif [[ $cmd == classerr_nn ]]; then
+        if [[ ! -s $w/class_${FEAT}_nn_${name_exp}.log ]] ; then
+          echo "ERROR: $w/class_${FEAT}_nn_${name_exp}.log not created"
+          exit 1
+       fi
+       # Count errors
+       perl -ne 'BEGIN {$ok=0; $err=0}
+                 next unless /^.*SA(...).*SES(...).*$/; 
+                 if ($1 == $2) {$ok++}
+                 else {$err++}
+                 END {printf "nerr=%d\tntot=%d\terror_rate=%.2f%%\n", ($err, $ok+$err, 100*$err/($ok+$err))}' $w/class_${FEAT}_nn_${name_exp}.log | tee -a $w/class_${FEAT}_nn_${name_exp}.log
+                 
    elif [[ $cmd == trainworld ]]; then
        ## @file
 	   # \TODO
@@ -186,6 +205,10 @@ for cmd in $*; do
 	   #   * <code> gmm_verify ... | tee $w/verif_${FEAT}_${name_exp}.log </code>
        (gmm_verify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm -w $world $lists/gmm.list $lists/verif/all.test $lists/verif/all.test.candidates | tee $w/verif_${FEAT}_${name_exp}.log) || exit 1
 
+   elif [[ $cmd == verify_nn ]]; then
+        python3 pav_spkid_pytorch/verify_nn.py --ve_list_file $lists/verif/all.test --ve_cand_list_file $lists/verif/all.test.candidates --db_path work/${FEAT} --ext ${FEAT} --weights_ckpt work/mcp/e30_weights.ckpt --train_cfg work/mcp/train.opts --log_file $w/verif_${FEAT}_nn_${name_exp}.log
+   
+
    elif [[ $cmd == verif_err ]]; then
        if [[ ! -s $w/verif_${FEAT}_${name_exp}.log ]] ; then
           echo "ERROR: $w/verif_${FEAT}_${name_exp}.log not created"
@@ -194,6 +217,15 @@ for cmd in $*; do
        # You can pass the threshold to spk_verif_score.pl or it computes the
        # best one for these particular results.
        spk_verif_score $w/verif_${FEAT}_${name_exp}.log | tee $w/verif_${FEAT}_${name_exp}.res
+
+       elif [[ $cmd == verif_err_nn ]]; then
+       if [[ ! -s $w/verif_${FEAT}_nn_${name_exp}.log ]] ; then
+          echo "ERROR: $w/verif_${FEAT}_nn_${name_exp}.log not created"
+          exit 1
+       fi
+       # You can pass the threshold to spk_verif_score.pl or it computes the
+       # best one for these particular results.
+       spk_verif_score $w/verif_${FEAT}_nn_${name_exp}.log | tee $w/verif_${FEAT}_nn_${name_exp}.res
 
    elif [[ $cmd == finalclass ]]; then
        ## @file

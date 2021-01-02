@@ -116,6 +116,9 @@ def main(opts):
                             pin_memory=False)
     opts.input_dim = dset.input_dim
     opts.num_spks = dset.num_spks
+    # Cuda config
+    device = torch.cuda.device("cuda" if torch.cuda.is_available() else "cpu")
+    print(device)
     # save training config
     with open(os.path.join(opts.save_path, 'train.opts'), 'w') as opts_f:
         opts_f.write(json.dumps(vars(opts), indent=2))

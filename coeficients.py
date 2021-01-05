@@ -66,5 +66,3 @@ else:
             for n in line:
                 data = struct.pack('f', n)
                 fw.write(data)
-
-

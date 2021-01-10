@@ -1,6 +1,7 @@
 # Imports
 import random
 import numpy
+import math
 
 # Steps for implementation:
 # Step 1: A swarm of bees are randomly initialized in the search
@@ -38,6 +39,8 @@ lower_bound[0] = 0      # lr lower bpund
 lower_bound[1] = 50     # hsize lower bpund
 lower_bound[2] = 40     # epoch lower bpund
 lower_bound[3] = 0      # momentum lower bpund
+
+t_size = 2              # Tournament size for elite choosing
 
 dmax_walk = 0.2
 dmin_walk = 0.02
@@ -95,7 +98,7 @@ class Bee:
         for i in range(dim):
             wf[i] = tau*(upper_bound[i] - lower_bound[i])
             aux_pos[i] = self.bee_position[i] + r*wf[i]
-            if aux_pos[i] < upper_bound[i] or aux_pos[i] > lower_bound[i] :
+            if not out_of_bounds(dim, aux_pos, upper_bound, lower_bound) :
                 self.bee_position[i] = aux_pos[i]
             else:
                 pass
@@ -110,14 +113,30 @@ class Bee:
         aux_pos = []
         for i in range(dim):
             aux_pos[i] = self.bee_position + wb*rb*(self.best_achievement[i] - self.bee_position[i]) + we*re*(list[elite_number].bee_position[i] - self.bee_position[i])
-            if aux_pos[i] < upper_bound[i] or aux_pos[i] > lower_bound[i] :
+            if not out_of_bounds(dim, aux_pos, upper_bound, lower_bound) :
                 self.bee_position[i] = aux_pos[i]
             else:
                 pass
 
 
 
-def ABSO(self, n, d, scout, elite, upper_bound, lower_bound, dmax_walk, dmin_walk, wb_max, wb_min, we_max, we_min, itermax):
+def out_of_bounds(dim, pos, upper, lower):
+    for i in range(dim):
+        if pos[i] < upper[i] or pos[i] > lower[i] :
+            return False
+        else:
+            return True
+
+def tournament_selection(t_size, bee_list):
+    participants = []
+    for i in range(len(bee_list)):
+        if bee_list[i].bee_type == "e" :
+            participants[i] = Bee(bee_list[i].get_number)
+            participants[i].set_value = bee_list[i].bee_value*numpy.random.uniform(1, t_size, size=None)
+    participants.sort(key=lambda b: b.bee_value, reverse=True)
+    return participants[0]
+
+def ABSO(n, d, scout, elite, upper_bound, lower_bound, dmax_walk, dmin_walk, wb_max, wb_min, we_max, we_min, itermax):
     # Step 1: Initialization of bees
     beeList = []
     for i in range(n):
@@ -152,10 +171,11 @@ def ABSO(self, n, d, scout, elite, upper_bound, lower_bound, dmax_walk, dmin_wal
             if beeList[i].bee_type == "s" :
                 tau = beeList[i].walk_radius(dmax_walk, dmin_walk, iter, itermax)
                 beeList[i].scoutUpdatePosition(d, tau, upper_bound, lower_bound)
-            elif beeList[i].bee_type == "o" :
+            elif beeList[i].bee_type == "o" or beeList[i].bee_type == "e" : # Something about distance
                 wb = beeList[i].converging_wb(wb_max, wb_min, iter, itermax)
                 we = beeList[i].converging_we(we_max, we_min, iter, itermax)
-                beeList[i].onlookerUpdatePosition(d, beeList[i].get_elite, upper_bound, lower_bound, beeList, wb, we)
+                elite = tournament_selection(t_size, beeList)
+                beeList[i].onlookerUpdatePosition(d, elite.get_number, upper_bound, lower_bound, beeList, wb, we)
             else:
                 pass
 

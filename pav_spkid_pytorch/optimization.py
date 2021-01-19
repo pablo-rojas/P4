@@ -129,7 +129,7 @@ class Bee:
         re = random.random()
         aux_pos = [0]*dim
         for i in range(dim):
-            aux_pos[i] = self.bee_position + wb*rb*(self.best_achievement[i] - self.bee_position[i]) + we*re*(elite.bee_position[i] - self.bee_position[i])
+            aux_pos[i] = self.bee_position[i] + wb*rb*(self.best_achievement[i] - self.bee_position[i]) + we*re*(elite.bee_position[i] - self.bee_position[i])
             if not out_of_bounds(dim, aux_pos, upper_bound, lower_bound) :
                 self.bee_position[i] = aux_pos[i]
             else:

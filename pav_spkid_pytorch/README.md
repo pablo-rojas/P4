@@ -1,72 +1,19 @@
-# PAV Speaker Identifier with Deep Neural Networks
+# PAV Speaker Classification and Verification with Deep Neural Networks
 
-Speaker recognition baseline for PAV subject in ETSETB UPC (Telecom BCN)
-
-This program creates a Multilayer perceptron to classify speaker.
-
-## Installation
-You need python3 and pytorch (version > 0.4)
-
-## Training
-Execute `python train.py --help` to get the help message.
-
-An example:
-```
-python train.py --save_path model_h20 --hsize 20 --in_frames=1 \
-                --db_path work/mcp \
-                --tr_list_file cfg/all.train \
-		--va_list_file cfg/all.test 
-```
+This is an implementation of https://github.com/santi-pdp/pav_spkid_pytorch, The objetcive of this project is to implement a speaker identifier using Neural Networks over a previously calculated feature vector. Additionally to the classifier function for which that program was designed, a verification function has been added.
 
 
-## Test
-Execute `python test.py --help` to get the help message.
+# Bibliography:
 
-An example:
-```
-python test.py --weights_ckpt model_h20/bestval_e19_weights.ckpt \
-               --train_cfg model_h20/train.opts --log_file results.txt \
-               --db_path work/mcp \
-	       --te_list_file cfg/all.test
-```
+G. Heigold, I. Moreno, S. Bengio and N. Shazeer, "End-to-end text-dependent speaker verification," 2016 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), Shanghai, 2016, pp. 5115-5119, doi: 10.1109/ICASSP.2016.7472652.
 
+Bing Xiang and T. Berger, "Efficient text-independent speaker verification with structural Gaussian mixture models and neural network," in IEEE Transactions on Speech and Audio Processing, vol. 11, no. 5, pp. 447-456, Sept. 2003, doi: 10.1109/TSA.2003.81582
 
-From the result file you can easily compute the number of errors.
+D. Snyder, P. Ghahremani, D. Povey, D. Garcia-Romero, Y. Carmiel and S. Khudanpur, "Deep neural network-based speaker embeddings for end-to-end speaker verification," 2016 IEEE Spoken Language Technology Workshop (SLT), San Diego, CA, 2016, pp. 165-170, doi: 10.1109/SLT.2016.7846260.
 
-## Architecture
+SNYDER, David, et al. Deep Neural Network Embeddings for Text-Independent Speaker Verification. En Interspeech. 2017. p. 999-1003.
 
-- The architecture (number of layers, activation) is hard-coded in `train.py` and `test.py`. It is straight forward to change.
-- The input files are binary files (fmatrix) which represent arrays of num_of_frames x num_features_per_frame. The format is two integers (of 4 bytes) with nframes and nfeatures and then num_of_framex * num_features_per_frame float values of 4 bytes.
-- The network predict the speaker for each input vector. An input vector is the result of stacking `in_frame` frames. This value can be changed as an option. The classification for the complete test file (utterance) is based on the sum of logprob of each input vector.
+GOODFELLOW, Ian J.; VINYALS, Oriol; SAXE, Andrew M. Qualitatively characterizing neural network optimization problems. arXiv preprint arXiv:1412.6544, 2014.
 
-
-## Speaker ID.
-
-The script `make_spk2idx.py` was used to create the _dictionary_
-`cfg/spk2idx.json`. This _dictionary_ associates each speaker name (as
-`SES0001`) with an integer from `0` to `num_speakers-1`.
-
-
-You don't need to execute it again, if the same database is used.
-
-
-## Train - Validation - Test
-
-
-You should use
-- the database named `train` for estimate the weigths (`--train_file` in `train.py`).
-- the database named `test` for validation (`--val_file` in `train.py`)
-- the database named `final test` for test (`--test_file` in `test.py`)
-
-However, as you don't know the ground truth for the `final test` you need to submit the results to us.
-If you want to get a first idea of how the system performs, use the validation data as test.
-
-
-## Experiments
-
-Some parameters you may want to experiment with:
-- Influence of number of unit of hidden layers (performance, training and test time, size of model)
-- Influence of number of context frames
-- You can edit `train.py` and/or `test.py` and change number of layers,
-activation function, optimizer, learning rate, add dropout, etc.
+D. Stathakis (2009) How many hidden layers and nodes?, International Journal of Remote Sensing, 30:8, 2133-2147, DOI: 10.1080/01431160802549278
 

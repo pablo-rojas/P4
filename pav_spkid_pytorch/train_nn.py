@@ -25,7 +25,6 @@ import timeit
 #        loss.item()
 
 
-
 def compute_accuracy(y_, y):
     pred = y_.max(1, keepdim=True)[1] 
     correct = pred.eq(y.view_as(pred)).sum().item()
@@ -116,8 +115,8 @@ def main(opts):
     opts.input_dim = dset.input_dim
     opts.num_spks = dset.num_spks
     # Cuda config
-    device = torch.cuda.device("cuda" if torch.cuda.is_available() else "cpu")
-    print(device)
+    # device = torch.cuda.device("cuda" if torch.cuda.is_available() else "cpu")
+    # print(device)
     # save training config
     with open(os.path.join(opts.save_path, 'train.opts'), 'w') as opts_f:
         opts_f.write(json.dumps(vars(opts), indent=2))
@@ -244,5 +243,4 @@ if __name__ == '__main__':
     print(json.dumps(vars(opts), indent=2))
     print('-' * 30)
     main(opts)
-
 

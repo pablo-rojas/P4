@@ -23,7 +23,6 @@ import timeit
 
 # >0.4   pred.eq(y.view_as(pred)).sum().item()
 #        loss.item()
-max_acc = 0
 
 
 def compute_accuracy(y_, y):
@@ -117,8 +116,8 @@ def main(opts):
     opts.input_dim = dset.input_dim
     opts.num_spks = dset.num_spks
     # Cuda config
-    device = torch.cuda.device("cuda" if torch.cuda.is_available() else "cpu")
-    print(device)
+    # device = torch.cuda.device("cuda" if torch.cuda.is_available() else "cpu")
+    # print(device)
     # save training config
     with open(os.path.join(opts.save_path, 'train.opts'), 'w') as opts_f:
         opts_f.write(json.dumps(vars(opts), indent=2))
@@ -151,8 +150,6 @@ def main(opts):
                                               opts.log_freq)
         va_loss_, va_acc_ = eval_spkid_epoch(va_dloader, model, 
                                              epoch, opts.log_freq)
-        if va_acc_[0] > max_acc :
-            max_acc = va_acc_[0]
         if best_val <= va_loss_[0]:
             patience -= 1
             print('Val loss did not improve. Patience '

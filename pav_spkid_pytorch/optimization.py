@@ -36,7 +36,7 @@ import timeit
 
 
 # ----- ABSO ----- #
-n = 50                  # Number of bees
+n = 2                   # Number of bees
 itermax = 5000          # Number of times the algorithm is iterated
 scouts = 0.15           # Percentage of scouts (of the total bees)
 elite = 0.2             # Percentage of elite bees (of the onlookers)
@@ -70,8 +70,7 @@ spk2idx = "lists/spk2idx.json"
 tr_list_file = "lists/class/all.train"
 va_list_file = "lists/class/all.test"
 save_path = "work/mcp"
-patience = 10
-log_freq = 100
+
 # --- #
 
 class Bee:
@@ -224,6 +223,10 @@ def eval_spkid_epoch(dloader, model, epoch, log_freq):
     return [m_va_loss], [m_va_acc]
 
 def train(lrate, hsize, n_epoch, in_frames, batch_size):
+    max_acc = 0
+    patience = 10
+    log_freq = 100
+
     dset = SpkDataset(db_path, tr_list_file,
                       ext, spk2idx,
                       in_frames=in_frames)

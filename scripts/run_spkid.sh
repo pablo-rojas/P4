@@ -14,7 +14,7 @@
 # - db:       directory of the speecon database 
 lists=lists
 w=work
-name_exp=five
+name_exp=1.5
 db=spk_8mu/speecon
 final=spk_8mu/sr_test
 world=users
@@ -155,13 +155,13 @@ for cmd in $*; do
        done
 
    elif [[ $cmd == train_nn ]]; then
-        python3 pav_spkid_pytorch/train_nn.py --save_path work/mcp --tr_list_file lists/class/all.train --va_list_file lists/class/all.test --db_path work/${FEAT} --spk2idx lists/spk2idx.json --ext ${FEAT} --lr 0.0001 --hsize 500 --epoch 40 --momentum 0.7
+        python3 pav_spkid_pytorch/train_nn.py --save_path work/mcp/${FEAT}_${name_exp} --tr_list_file lists/class/all.train --va_list_file lists/class/all_div.val --db_path work/${FEAT} --spk2idx lists/spk2idx.json --ext ${FEAT} --lr 0.0001 --hsize 256 --epoch 40 --in_frames 20 --momentum 0.5
 
    elif [[ $cmd == test ]]; then
        (gmm_classify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list  $lists/class/all.test | tee $w/class_${FEAT}_${name_exp}.log) || exit 1
     
    elif [[ $cmd == test_nn ]]; then
-        python3 pav_spkid_pytorch/test_nn.py --te_list_file lists/class/all.train --db_path work/${FEAT} --ext ${FEAT} --weights_ckpt work/mcp/e30_weights.ckpt --train_cfg work/mcp/train.opts --log_file $w/class_${FEAT}_nn_${name_exp}.log
+        python3 pav_spkid_pytorch/test_nn.py --te_list_file lists/class/all_div.test --db_path work/${FEAT} --ext ${FEAT} --weights_ckpt work/mcp/${FEAT}_${name_exp}/bestval_e17_weights.ckpt --train_cfg work/mcp/${FEAT}_${name_exp}/train.opts --log_file $w/class_${FEAT}_nn_${name_exp}.log
    
    elif [[ $cmd == classerr ]]; then
        if [[ ! -s $w/class_${FEAT}_${name_exp}.log ]] ; then
@@ -206,9 +206,8 @@ for cmd in $*; do
        (gmm_verify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm -w $world $lists/gmm.list $lists/verif/all.test $lists/verif/all.test.candidates | tee $w/verif_${FEAT}_${name_exp}.log) || exit 1
 
    elif [[ $cmd == verify_nn ]]; then
-        python3 pav_spkid_pytorch/verify_nn.py --ve_list_file $lists/verif/all.test --ve_cand_list_file $lists/verif/all.test.candidates --db_path work/${FEAT} --ext ${FEAT} --weights_ckpt work/mcp/e30_weights.ckpt --train_cfg work/mcp/train.opts --log_file $w/verif_${FEAT}_nn_${name_exp}.log
+        python3 pav_spkid_pytorch/verify_nn.py --ve_list_file $lists/verif/all_div.test --ve_cand_list_file $lists/verif/all_div.test.candidates --db_path work/${FEAT} --ext ${FEAT} --weights_ckpt work/mcp/${FEAT}_${name_exp}/bestval_e17_weights.ckpt --train_cfg work/mcp/${FEAT}_${name_exp}/train.opts --log_file $w/verif_${FEAT}_nn_${name_exp}.log
    
-
    elif [[ $cmd == verif_err ]]; then
        if [[ ! -s $w/verif_${FEAT}_${name_exp}.log ]] ; then
           echo "ERROR: $w/verif_${FEAT}_${name_exp}.log not created"
@@ -218,7 +217,7 @@ for cmd in $*; do
        # best one for these particular results.
        spk_verif_score $w/verif_${FEAT}_${name_exp}.log | tee $w/verif_${FEAT}_${name_exp}.res
 
-       elif [[ $cmd == verif_err_nn ]]; then
+    elif [[ $cmd == verif_err_nn ]]; then
        if [[ ! -s $w/verif_${FEAT}_nn_${name_exp}.log ]] ; then
           echo "ERROR: $w/verif_${FEAT}_nn_${name_exp}.log not created"
           exit 1

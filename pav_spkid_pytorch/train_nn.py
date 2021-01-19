@@ -41,8 +41,8 @@ def train_spkid_epoch(dloader, model, opt,
     beg_t = timeit.default_timer()
     for bidx, batch in enumerate(dloader, start=1):
         X, Y = batch
-        X = Variable(X)
-        Y = Variable(Y)
+        X = Variable(X).cuda()
+        Y = Variable(Y).cuda()
         # reset any previous gradients in optimizer
         opt.zero_grad()
         # (1) Forward data through neural network
@@ -80,8 +80,8 @@ def eval_spkid_epoch(dloader, model, epoch, log_freq):
     beg_t = timeit.default_timer()
     for bidx, batch in enumerate(dloader, start=1):
         X, Y = batch
-        X = Variable(X, volatile=True, requires_grad=False)
-        Y = Variable(Y, volatile=True, requires_grad=False)
+        X = Variable(X, requires_grad=False).cuda()
+        Y = Variable(Y, requires_grad=False).cuda()
         Y_ = model(X)
         loss = F.nll_loss(Y_, Y)
         acc = compute_accuracy(Y_, Y)
@@ -106,14 +106,13 @@ def main(opts):
                       in_frames=opts.in_frames)
     dloader = DataLoader(dset, batch_size=opts.batch_size,
                          num_workers=1, shuffle=True, 
-                         pin_memory=False)
-
+                         pin_memory=True)
     va_dset = SpkDataset(opts.db_path, opts.va_list_file,
                          opts.ext, opts.spk2idx,
                          in_frames=opts.in_frames)
     va_dloader = DataLoader(va_dset, batch_size=opts.batch_size,
                             num_workers=1, shuffle=True, 
-                            pin_memory=False)
+                            pin_memory=True)
     opts.input_dim = dset.input_dim
     opts.num_spks = dset.num_spks
     # Cuda config
@@ -131,6 +130,7 @@ def main(opts):
                           nn.ReLU(),
                           nn.Linear(opts.hsize, dset.num_spks),
                           nn.LogSoftmax(dim=1))
+    model.cuda()
     print('Created model:')
     print(model)
     print('-')

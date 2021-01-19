@@ -62,7 +62,6 @@ def main(opts):
         timings = []
         beg_t = timeit.default_timer()
         for verif_i, verif_file in enumerate(verif_list, start=1):
-            print(verif_i-1)
             verif_path = os.path.join(opts.db_path, verif_file + '.' + opts.ext)
             fmatrix = read_fmatrix(verif_path)
             score = verify(model, fmatrix, cfg['in_frames'], verif_cand_list[verif_i-1]).item()

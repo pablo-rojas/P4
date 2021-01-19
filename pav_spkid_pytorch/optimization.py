@@ -45,10 +45,10 @@ d = 5                   # ORDER:: lr, hsize, epoch, momentum
 upper_bound = [0]*5
 lower_bound = [0]*5
 upper_bound[0] = 0.2            # lr upper bpund
-upper_bound[1] = 2000           # hsize upper bpund
+upper_bound[1] = 1000           # hsize upper bpund
 upper_bound[2] = 100            # epoch upper bpund
-upper_bound[3] = 100            # in_frames upper bpund
-upper_bound[4] = 10000          # batch_size upper bpund
+upper_bound[3] = 50             # in_frames upper bpund
+upper_bound[4] = 500            # batch_size upper bpund
 
 lower_bound[0] = 0.000001       # lr lower bpund
 lower_bound[1] = 20             # hsize lower bpund
@@ -63,13 +63,6 @@ dmin_walk = 0.02
 
 wb_max = we_max = 2.5
 wb_min = we_min = 1.25
-
-db_path = "work/mfcc"
-ext = "mfcc"
-spk2idx = "lists/spk2idx.json"
-tr_list_file = "lists/class/all.train"
-va_list_file = "lists/class/all.test"
-save_path = "work/mcp"
 
 # --- #
 
@@ -227,6 +220,13 @@ def train(lrate, hsize, n_epoch, in_frames, batch_size):
     patience = 10
     log_freq = 100
 
+    db_path = "work/mfcc"
+    ext = "mfcc"
+    spk2idx = "lists/spk2idx.json"
+    tr_list_file = "lists/class/all.train"
+    va_list_file = "lists/class/all.test"
+    save_path = "work/mcp"
+
     dset = SpkDataset(db_path, tr_list_file,
                       ext, spk2idx,
                       in_frames=in_frames)
@@ -302,7 +302,7 @@ def tournament_selection(t_size, bee_list):
     participants = []
     for i in range(len(bee_list)):
         if bee_list[i].bee_type == "e" :
-            participants.append(Bee(bee_list[i].get_number))
+            participants.append(Bee(bee_list[i].get_number()))
             participants[i].set_value = bee_list[i].bee_value*numpy.random.uniform(1, t_size, size=None)
     participants.sort(key=lambda b: b.bee_value, reverse=True)
     return participants[0]
@@ -330,9 +330,9 @@ def ABSO(n, d, scout, elite, upper_bound, lower_bound, dmax_walk, dmin_walk, wb_
         s = n - scouts*n
         e = elite*n
         for i in range(n):
-            if beeList[i].get_number > s :
+            if beeList[i].get_number() > s :
                 beeList[i].set_type("s")
-            elif beeList[i].get_number < e :
+            elif beeList[i].get_number() < e :
                 beeList[i].set_type("e")
             else:
                 beeList[i].set_type("o")

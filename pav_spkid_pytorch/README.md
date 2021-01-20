@@ -11,13 +11,13 @@ Then, with the structure of a Multi Layer Perceptron, and the optimized weights,
 ## Training
 The Training in our program is performed though the command : `FEAT=<feature> run_spkid train_nn`. Where <feature> must be one of the three choices for the feature vector we implemented.
 
-Training a neural network is not an easy task, as overfitting and underfitting problems are pretty common [6]. The objective is to design a model that is able to achieve the best results on a given task and that can be later generalized. The problems faced here are those of escaping local minima and dealing with the previously mentioned overfitting and underfitting problems.
+Training a neural network is not an easy task, as overfitting and underfitting problems are pretty common [5]. The objective is to design a model that is able to achieve the best results on a given task and that can be later generalized. The problems faced here are those of escaping local minima and dealing with the previously mentioned overfitting and underfitting problems.
 
-For our proposed model, we used 256 hidden layers with 20 feature units per layer. The idea is that a deeper network will allow to use more non-linear information. A deeper or wider network did not improve the results. Actually, as there are more parameters to optimize, it turned out to perform worse. A bigger network also proved to suffer from overfitting, which we could detect on the training results. When overfitting, the loss and accuracy of the training data will shoot up, getting up to near 0 loss and 100% accuracy. At the same time, validation loss will start to grow, and validation accuracy will not have the same 100% value. This means that the networks is "memorizing" the training data, and so not able to properly generalize what it has learned. More on that topic on []. An example of overfitting case would look something like this:
+For our proposed model, we used 256 hidden layers with 20 feature units per layer. The idea is that a deeper network will allow to use more non-linear information. A deeper or wider network did not improve the results. Actually, as there are more parameters to optimize, it turned out to perform worse. A bigger network also proved to suffer from overfitting, which we could detect on the training results. When overfitting, the loss and accuracy of the training data will shoot up, getting up to near 0 loss and 100% accuracy. At the same time, validation loss will start to grow, and validation accuracy will not have the same 100% value. This means that the networks is "memorizing" the training data, and so not able to properly generalize what it has learned. More on that topic on [6]. An example of overfitting case would look something like this:
 
 <img src="log_plot_overfitting.png" align="center">
 
-We performed the training with a batch size of 1000 using the Adam optimizer and a 0.0001 learning rate. The Adam optimizer [9], is one that has proven significant improvements over the Stochastic Gradient Descent optimizer for neural networks. The learning rate was chosen to be a low value, as according to [6], a lower value helps escaping the local minima and tends to be less prone to overfitting. The data we used is that of the SPEECON database [7], which was divided on a 75% training, 12.5% validation and 12.5% test. The results of the training process can be observed on the following plot:
+We performed the training with a batch size of 1000 using the Adam optimizer and a 0.0001 learning rate. The Adam optimizer [7], is one that has proven significant improvements over the Stochastic Gradient Descent optimizer for neural networks. The learning rate was chosen to be a low value, as according to 8], a lower value helps escaping the local minima and tends to be less prone to overfitting. The data we used is that of the SPEECON database [9], which was divided on a 75% training, 12.5% validation and 12.5% test. The results of the training process can be observed on the following plot:
 
 <img src="log_plots.png" align="center">
   
@@ -34,7 +34,7 @@ With our model we obtained a 1.28% error rate.
 ## Verification
 To Perform the verification, the command `FEAT=<feature> run_spkid verify_nn` must be run, followed by the command `FEAT=<feature> run_spkid verif_err_nn` to evaluate the verification results.
 
-To implement this option, which was not present in the original `pav_spkid_pytorch` code, a modified version of the classification script was implemented. On this version, instead of returning the maximum of the last layer after the softmax algorithm, the script will return the value corresponding to the probability of a given class [2].
+To implement this option, which was not present in the original `pav_spkid_pytorch` code, a modified version of the classification script was implemented. On this version, instead of returning the maximum of the last layer after the softmax algorithm, the script will return the value corresponding to the probability of a given class [1].
 
 On the verification task, our model managed to achieve a 0.0 cost detection score.
 
@@ -79,15 +79,18 @@ Note that the algorithm might be more interesting a company or organization with
 
 [4] SNYDER, David, et al. Deep Neural Network Embeddings for Text-Independent Speaker Verification. En Interspeech. 2017. p. 999-1003.
 
-[5] ISKRA, Dorota, et al. Speecon-speech databases for consumer devices: Database specification and validation. 2002.
+[5] D. Stathakis (2009) How many hidden layers and nodes?, International Journal of Remote Sensing, 30:8, 2133-2147, DOI: 10.1080/01431160802549278
 
-[6] D. Stathakis (2009) How many hidden layers and nodes?, International Journal of Remote Sensing, 30:8, 2133-2147, DOI: 10.1080/01431160802549278
+[6] DIETTERICH, Tom. Overfitting and undercomputing in machine learning. ACM computing surveys (CSUR), 1995, vol. 27, no 3, p. 326-327.
 
-[7] GOODFELLOW, Ian J.; VINYALS, Oriol; SAXE, Andrew M. Qualitatively characterizing neural network optimization problems. arXiv preprint arXiv:1412.6544, 2014.
+[7] KINGMA, Diederik P.; BA, Jimmy. Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980, 2014.
 
 [8] M. Bahaghighat, F. Abedini, M. S’hoyan and A. Molnar, "Vision Inspection of Bottle Caps in Drink Factories Using Convolutional Neural Networks," 2019 IEEE 15th International Conference on Intelligent Computer Communication and Processing (ICCP), Cluj-Napoca, Romania, 2019, pp. 381-385, doi: 10.1109/ICCP48234.2019.8959737.
 
-[9] KINGMA, Diederik P.; BA, Jimmy. Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980, 2014.
+[9] ISKRA, Dorota, et al. Speecon-speech databases for consumer devices: Database specification and validation. 2002.
+
+[10] GOODFELLOW, Ian J.; VINYALS, Oriol; SAXE, Andrew M. Qualitatively characterizing neural network optimization problems. arXiv preprint arXiv:1412.6544, 2014.
+
 
 --
 

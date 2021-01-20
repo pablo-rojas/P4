@@ -51,8 +51,9 @@ For our requirements, the ones that better adjust are the Particle Swarm Optimiz
 *The success of an optimization algorithm depends strongly on the ability of providing a good balance between exploration and exploitation. Exploration refers to generation of new solutions in as yet unseen regions of the search space and exploitation means the concentration of the algorithm’s search at the vicinity of current good solutions. The inability of the algorithm to make a good balance between exploration and exploitation leads to premature convergence, getting trapped in a local optima, and stagnation.*
 
 And the ABSO algorithm excels in these areas due to its particular definition of the bee type, and its roles assigned.
-The adjustable parameters of the ABSO algorithm, are as follows: the swarm size is set to 30 of which 25 of the bees are onlooker and 5 bees are scout.
+The adjustable parameters of the ABSO algorithm, are as follows:
 
+- Swarm size is set to 30 which 25 of the bees are onlooker and 5 bees are scout.
 - Elite number `n_e  = 5` (selectioned by tournament [TOUR])
 - `w_bmax=w_emax=2.5`
 - `w_bmin=w_emin=1.5`

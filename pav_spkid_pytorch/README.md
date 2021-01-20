@@ -23,11 +23,14 @@ The Classification task can be performed with the command `FEAT=<feature> run_sp
 With our model we obtained a 1.28% error rate.
 
 ## Verification
+To Perform the verification, the command `FEAT=<feature> run_spkid verify_nn` must be run, followed by the command `FEAT=<feature> run_spkid verif_err_nn` to evaluate the verification results.
 
+To implement this option, which was not present in the original `pav_spkid_pytorch` code, a modified version of the classification script was implemented. On this version, instead of returning the maximum of the last layer after the softmax algorithm, the script will return the value corresponding to the probability of a given class.
+
+On the verification task, our model managed to achive a 0% cost detection score.
 
 
 ## Optimization
-
 
 
 ## Bibliography:

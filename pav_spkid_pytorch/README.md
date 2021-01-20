@@ -15,7 +15,7 @@ For our proposed model, we used 256 hidden layers with 20 feature units per laye
 ### CUDA Acceleration
 To train the model, we needed more performance than the CPU can offer, as training these models can take quite a lot of teime, especially when you take on consideration the amount of times you want to perform the training in order the achive the optimal hyperparameters. So, the best solution was to train it on our GPU, a Nvidia RTX 2060. By using the graphics card, we managed to reduce the computing teme between three and four times.
 
-The problem we faced here was that we are using WSL 2 for programming on linux, whose support for GPUs is still being developed. For that reason, we had to update to the latest build on development, only available though Windows Insider Program (and on the dev channel). We do not recommend anyone this option currently, as this version may have instabitlities and some bugs. 
+The problem we faced here was that we are using WSL 2 for programming on linux, whose support for GPUs is still being developed. For that reason, we had to update to the latest build on development, only available though Windows Insider Program (and on the dev channel). We do not recommend anyone this option currently, as this version may have instabitlities and some bugs. For more information about the procedure to install CUDA on WSL, follow this link: https://docs.nvidia.com/cuda/wsl-user-guide/index.html
 
 ## Classification
 The Classification task can be performed with the command `FEAT=<feature> run_spkid test_nn`. Then, the command `FEAT=<feature> run_spkid classerr_nn` must be executed to calculate the error rate of the classification.
@@ -41,7 +41,7 @@ On the verification task, our model managed to achive a 0% cost detection score.
 
 [3] Bing Xiang and T. Berger, "Efficient text-independent speaker verification with structural Gaussian mixture models and neural network," in IEEE Transactions on Speech and Audio Processing, vol. 11, no. 5, pp. 447-456, Sept. 2003, doi: 10.1109/TSA.2003.81582
 
-[4]D. Snyder, P. Ghahremani, D. Povey, D. Garcia-Romero, Y. Carmiel and S. Khudanpur, "Deep neural network-based speaker embeddings for end-to-end speaker verification," 2016 IEEE Spoken Language Technology Workshop (SLT), San Diego, CA, 2016, pp. 165-170, doi: 10.1109/SLT.2016.7846260.
+[4] D. Snyder, P. Ghahremani, D. Povey, D. Garcia-Romero, Y. Carmiel and S. Khudanpur, "Deep neural network-based speaker embeddings for end-to-end speaker verification," 2016 IEEE Spoken Language Technology Workshop (SLT), San Diego, CA, 2016, pp. 165-170, doi: 10.1109/SLT.2016.7846260.
 
 [5] SNYDER, David, et al. Deep Neural Network Embeddings for Text-Independent Speaker Verification. En Interspeech. 2017. p. 999-1003.
 

@@ -8,18 +8,18 @@ The Trainning in our program is performed though the command : `FEAT=<feature> r
   - `lpcc` for Linear Prediction Cespstral Coeficients.
   - `mfcc`for Mel Frequency Cepstral Coeficientes.
   
-Training a neural network is not an easy task, as overfitting and underfitting problems are pretty common [6]. The objective is to design a model that is able to achive the best results on a given task and that can be later generalized. The problems faced here are those of escaping local minima and dealing with the previously mentioned overfitting and underfitting problems. 
+Training a neural network is not an easy task, as overfitting and underfitting problems are pretty common [7]. The objective is to design a model that is able to achive the best results on a given task and that can be later generalized. The problems faced here are those of escaping local minima and dealing with the previously mentioned overfitting and underfitting problems.
 
 For our proposed model, we used 256 hidden layers with 20 feature units per layer. The idea is that a deeper network will allow to use more non-linear information. A deeper or wider network did not improve the results, actually, as there are more parameters to optimize, it turned out to perform worse. A bigger network also proved to suffer from overfitting, which we could detect on the training results. When overfitting, the loss and accuracy of the training data will shoot up, getting up to near 0 loss and 100% accuracy. At the same time, validation loss will start to grow, and validation accuracy will not have the same 100% value. This means that the networks is "memorizing" the training data, and so not able to propely generalize what it has learned. More on that topic on []. An example of overfitting case would look something like this:
 
 <img src="log_plot_overfitting.png" align="center">
 
-We performed the trainning with a batch size of 1000 using the Adam optimizer and a 0.0001 learning rate. The data we used is that of the SPEECOn database [1], which was divided on a 75% training, 12.5% validation and 12.5% test. The results of the trainning process can be observed on the following plot:
+We performed the trainning with a batch size of 1000 using the Adam optimizer and a 0.0001 learning rate. Tha Adam optimizer [9], is one that has proven significant improveements over the Stochastic Gradien Descent optimizer for neural networks. The learnign rate was chosen to be a low value, as according to [6], a lower value helps escaping the locarl minima and tends to be less prone to overfitting. The data we used is that of the SPEECON database [1], which was divided on a 75% training, 12.5% validation and 12.5% test. The results of the trainning process can be observed on the following plot:
 
 <img src="log_plots.png" align="center">
   
 ### CUDA Acceleration
-To train the model, we needed more performance than the CPU can offer, as training these models can take quite a lot of teime, especially when you take on consideration the amount of times you want to perform the training in order the achive the optimal hyperparameters. So, the best solution was to train it on our GPU, a Nvidia RTX 2060. By using the graphics card, we managed to reduce the computing teme between three and four times.
+To train the model, we needed more performance than the CPU can offer, as training these models can take quite a lot of time, especially when you take on consideration the amount of times you want to perform the training in order the achive the optimal hyperparameters. So, the best solution was to train it on our GPU, a Nvidia RTX 2060. By using the graphics card, we managed to reduce the computing teme between three and four times.
 
 The problem we faced here was that we are using WSL 2 for programming on linux, whose support for GPUs is still being developed. For that reason, we had to update to the latest build on development, only available though Windows Insider Program (and on the dev channel). We do not recommend anyone this option currently, as this version may have instabitlities and some bugs. For more information about the procedure to install CUDA on WSL, follow this link: https://docs.nvidia.com/cuda/wsl-user-guide/index.html
 
@@ -56,6 +56,8 @@ On the verification task, our model managed to achive a 0.0 cost detection score
 [7] D. Stathakis (2009) How many hidden layers and nodes?, International Journal of Remote Sensing, 30:8, 2133-2147, DOI: 10.1080/01431160802549278
 
 [8] M. Bahaghighat, F. Abedini, M. S’hoyan and A. Molnar, "Vision Inspection of Bottle Caps in Drink Factories Using Convolutional Neural Networks," 2019 IEEE 15th International Conference on Intelligent Computer Communication and Processing (ICCP), Cluj-Napoca, Romania, 2019, pp. 381-385, doi: 10.1109/ICCP48234.2019.8959737.
+
+[9] KINGMA, Diederik P.; BA, Jimmy. Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980, 2014.
 
 --
 

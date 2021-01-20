@@ -1,13 +1,16 @@
 # PAV Speaker Classification and Verification with Deep Neural Networks
 
-This is an implementation of https://github.com/santi-pdp/pav_spkid_pytorch, The objetcive of this project is to implement a speaker identifier using Neural Networks over a previously calculated feature vector. Additionally to the classifier function for which that program was designed, a verification function has been added.
+This is an implementation of https://github.com/santi-pdp/pav_spkid_pytorch, The objective of this project is to implement a speaker identifier using Neural Networks over a previously calculated feature vector. Additionally to the classifier function for which that program was designed, a verification function has been added. Our Neral network works with an input feature vector that can be: 
 
-## Trainning
-The Trainning in our program is performed though the command : `FEAT=<feature> run_spkid train_nn`. Where <feature> must be one of the three choices for the feaure vector we implemented:
   - `lp` for Linear Prediction Coeficients.
   - `lpcc` for Linear Prediction Cespstral Coeficients.
   - `mfcc`for Mel Frequency Cepstral Coeficientes.
   
+Then, with the structure of a Multi Layer Perceptron, and the optimized weights, it can classify a speaker as one of the trained classes or it can verify it's identity. For thes part, the works of [2], [3], [4] and [5].
+  
+## Trainning
+The Trainning in our program is performed though the command : `FEAT=<feature> run_spkid train_nn`. Where <feature> must be one of the three choices for the feaure vector we implemented.
+
 Training a neural network is not an easy task, as overfitting and underfitting problems are pretty common [7]. The objective is to design a model that is able to achive the best results on a given task and that can be later generalized. The problems faced here are those of escaping local minima and dealing with the previously mentioned overfitting and underfitting problems.
 
 For our proposed model, we used 256 hidden layers with 20 feature units per layer. The idea is that a deeper network will allow to use more non-linear information. A deeper or wider network did not improve the results, actually, as there are more parameters to optimize, it turned out to perform worse. A bigger network also proved to suffer from overfitting, which we could detect on the training results. When overfitting, the loss and accuracy of the training data will shoot up, getting up to near 0 loss and 100% accuracy. At the same time, validation loss will start to grow, and validation accuracy will not have the same 100% value. This means that the networks is "memorizing" the training data, and so not able to propely generalize what it has learned. More on that topic on []. An example of overfitting case would look something like this:
@@ -31,7 +34,7 @@ With our model we obtained a 1.28% error rate.
 ## Verification
 To Perform the verification, the command `FEAT=<feature> run_spkid verify_nn` must be run, followed by the command `FEAT=<feature> run_spkid verif_err_nn` to evaluate the verification results.
 
-To implement this option, which was not present in the original `pav_spkid_pytorch` code, a modified version of the classification script was implemented. On this version, instead of returning the maximum of the last layer after the softmax algorithm, the script will return the value corresponding to the probability of a given class.
+To implement this option, which was not present in the original `pav_spkid_pytorch` code, a modified version of the classification script was implemented. On this version, instead of returning the maximum of the last layer after the softmax algorithm, the script will return the value corresponding to the probability of a given class [2].
 
 On the verification task, our model managed to achive a 0.0 cost detection score.
 

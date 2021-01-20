@@ -12,7 +12,7 @@ Training a neural network is not an easy task, as overfitting and underfitting p
 
 For our proposed model, we used 256 hidden layers with 20 feature units per layer. The idea is that a deeper network will allow to use more non-linear information. A deeper or wider network did not improve the results, actually, as there are more parameters to optimize, it turned out to perform worse. A bigger network also proved to suffer from overfitting, which we could detect on the training results. When overfitting, the loss and accuracy of the training data will shoot up, getting up to near 0 loss and 100% accuracy. At the same time, validation loss will start to grow, and validation accuracy will not have the same 100% value. This means that the networks is "memorizing" the training data, and so not able to propely generalize what it has learned. More on that topic on []. An example of overfitting case would look something like this:
 
-<img src="log_plots_overfitting.png" align="center">
+<img src="log_plot_overfitting.png" align="center">
 
 We performed the trainning with a batch size of 1000 using the Adam optimizer and a 0.0001 learning rate. The data we used is that of the SPEECOn database [1], which was divided on a 75% training, 12.5% validation and 12.5% test. The results of the trainning process can be observed on the following plot:
 

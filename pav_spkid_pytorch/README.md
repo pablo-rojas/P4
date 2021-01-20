@@ -62,7 +62,7 @@ The adjustable parameters of the algorithm, are as follows:
 
 Python environment is implemented for programming ABSO algorithm to identify the optimal values of our neural network.
 
-During the execution of the ABSO algorithm two main issues have been encountered.
+During the execution two main issues have been encountered.
 
 The size of the neural network. As the algorithm tries new values the size of the network can exceed the total capacity of the GPU memory.
 

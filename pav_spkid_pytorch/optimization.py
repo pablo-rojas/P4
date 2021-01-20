@@ -36,7 +36,7 @@ import timeit
 
 
 # ----- ABSO ----- #
-n = 2                   # Number of bees
+n = 30                   # Number of bees
 itermax = 5000          # Number of times the algorithm is iterated
 scouts = 0.15           # Percentage of scouts (of the total bees)
 elite = 0.2             # Percentage of elite bees (of the onlookers)
@@ -129,7 +129,7 @@ class Bee:
         re = random.random()
         aux_pos = [0]*dim
         for i in range(dim):
-            aux_pos[i] = self.bee_position + wb*rb*(self.best_achievement[i] - self.bee_position[i]) + we*re*(elite.bee_position[i] - self.bee_position[i])
+            aux_pos[i] = self.bee_position[i] + wb*rb*(self.best_achievement[i] - self.bee_position[i]) + we*re*(elite.bee_position[i] - self.bee_position[i])
             if not out_of_bounds(dim, aux_pos, upper_bound, lower_bound) :
                 self.bee_position[i] = aux_pos[i]
             else:
@@ -156,8 +156,8 @@ def train_spkid_epoch(dloader, model, opt,
     beg_t = timeit.default_timer()
     for bidx, batch in enumerate(dloader, start=1):
         X, Y = batch
-        X = Variable(X)
-        Y = Variable(Y)
+        X = Variable(X).cuda()
+        Y = Variable(Y).cuda()
         # reset any previous gradients in optimizer
         opt.zero_grad()
         # (1) Forward data through neural network
@@ -195,8 +195,8 @@ def eval_spkid_epoch(dloader, model, epoch, log_freq):
     beg_t = timeit.default_timer()
     for bidx, batch in enumerate(dloader, start=1):
         X, Y = batch
-        X = Variable(X, volatile=True, requires_grad=False)
-        Y = Variable(Y, volatile=True, requires_grad=False)
+        X = Variable(X, volatile=True, requires_grad=False).cuda()
+        Y = Variable(Y, volatile=True, requires_grad=False).cuda()
         Y_ = model(X)
         loss = F.nll_loss(Y_, Y)
         acc = compute_accuracy(Y_, Y)
@@ -253,7 +253,7 @@ def train(lrate, hsize, n_epoch, in_frames, batch_size):
                           nn.ReLU(),
                           nn.Linear(hsize, dset.num_spks),
                           nn.LogSoftmax(dim=1))
-
+    model.cuda()
 
     #opt = optim.SGD(model.parameters(), lr=lr, momentum=momentum)
     opt = optim.Adam(model.parameters(), lr=lrate)
@@ -299,7 +299,7 @@ def out_of_bounds(dim, pos, upper, lower):
             return True
 
 def tournament_selection(t_size, bee_list):
-    participants = []
+    participants = [0]*len(bee_list)
     for i in range(len(bee_list)):
         if bee_list[i].bee_type == "e" :
             participants.append(Bee(bee_list[i].get_number()))
@@ -325,7 +325,10 @@ def ABSO(n, d, scout, elite, upper_bound, lower_bound, dmax_walk, dmin_walk, wb_
 
         # Step 3: Rank th bees based on the result value
         beeList.sort(key=lambda b: b.bee_value, reverse=True)
-
+        print("--------------------------------------------------\n")
+        print("ITER: " + str(iter) + "\nValues Accuracy: " + str(beeList[0].bee_value) + "\n")
+        print("lr="+str(beeList[0].bee_position[0]) + " hsize="+str(beeList[0].bee_position[1]) + " epoch="+str(beeList[0].bee_position[2]) + " inframes="+str(beeList[0].bee_position[3]) + " batchsize="+str(beeList[0].bee_position[4]) +"\n")
+        print("--------------------------------------------------\n")
         # Step 4: Specify type of bees
         s = n - scouts*n
         e = elite*n
@@ -339,7 +342,7 @@ def ABSO(n, d, scout, elite, upper_bound, lower_bound, dmax_walk, dmin_walk, wb_
 
         # Step 5: Update position
         # Step 6: Exceeding space bees are out or replaced
-        for i in range(d):
+        for i in range(n):
             if beeList[i].bee_type == "s" :
                 tau = beeList[i].walk_radius(dmax_walk, dmin_walk, iter, itermax)
                 beeList[i].scoutUpdatePosition(d, tau, upper_bound, lower_bound)

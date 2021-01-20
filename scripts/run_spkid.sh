@@ -14,7 +14,7 @@
 # - db:       directory of the speecon database 
 lists=lists
 w=work
-name_exp=1.5
+name_exp=1.4
 db=spk_8mu/speecon
 final=spk_8mu/sr_test
 world=users
@@ -155,7 +155,7 @@ for cmd in $*; do
        done
 
    elif [[ $cmd == train_nn ]]; then
-        python3 pav_spkid_pytorch/train_nn.py --save_path work/mcp/${FEAT}_${name_exp} --tr_list_file lists/class/all.train --va_list_file lists/class/all_div.val --db_path work/${FEAT} --spk2idx lists/spk2idx.json --ext ${FEAT} --lr 0.0001 --hsize 256 --epoch 40 --in_frames 20 --momentum 0.5
+        python3 pav_spkid_pytorch/train_nn.py --save_path work/mcp/${FEAT}_${name_exp} --tr_list_file lists/class/all.train --va_list_file lists/class/all_div.val --db_path work/${FEAT} --spk2idx lists/spk2idx.json --ext ${FEAT} --lr 0.00002 --hsize 256 --epoch 100 --in_frames 20 --momentum 0.5
 
    elif [[ $cmd == test ]]; then
        (gmm_classify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list  $lists/class/all.test | tee $w/class_${FEAT}_${name_exp}.log) || exit 1

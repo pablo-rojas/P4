@@ -40,7 +40,19 @@ On the verification task, our model managed to achive a 0.0 cost detection score
 
 
 ## Optimization
-
+Once finished the implementation on neural networks, we encounter another problem, optimization.
+To perform the training a batch size, learning rate and other fields have to be set before computing, ideally the optimal values must be found and set as an initial condition to compute.
+The objective is to find these optimal values, we are in need of an optimization algorithm.
+For our requirements, the ones that better adjust are the Particle Swarm Optimization [PSO NUM] and the proposed. We choose the later because as they expose in the paper:
+The success of an optimization algorithm depends strongly on the ability of providing a good balance between exploration and exploitation. Exploration refers to generation of new solutions in as yet unseen regions of the search space and exploitation means the concentration of the algorithm’s search at the vicinity of current good solutions. The inability of the algorithm to make a good balance between exploration and exploitation leads to premature convergence, getting trapped in a local optima, and stagnation.
+And the ABSO algorithm excels in these areas due to its particular definition of the bee type, and its roles assigned.
+The adjustable parameters of the ABSO algorithm, are as follows: the swarm size is set to 30 of which 25 of the bees are onlooker and 5 bees are scout, elite number n_e  = 5, w_bmax=w_emax=2.5,   w_bmin=w_emin=1.5,
+iter_max=5000,  s_max=0.2,  s_min=0.02
+Python environment is implemented for programming ABSO algorithm to identify the optimal values of our neural network.
+During the execution of the ABSO algorithm two main issues have been encountered.
+The size of the neural network. As the algorithm tries new values the size of the network can exceed the total capacity of the GPU memory.
+Another encountered problem during the computation, is related to the computation time that takes each bee to train the model and evaluate, due to its duration we have not been able to get a satisfying result. The total time the algorithm takes to finish (with 30 bees and 5000 iterations) is far from reasonable.
+Note that the algorithm might be more interesting a company or organization with bigger infrastructure.
 
 ## Bibliography:
 

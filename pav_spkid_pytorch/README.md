@@ -3,7 +3,7 @@
 This is an implementation of https://github.com/santi-pdp/pav_spkid_pytorch, The objetcive of this project is to implement a speaker identifier using Neural Networks over a previously calculated feature vector. Additionally to the classifier function for which that program was designed, a verification function has been added.
 
 ## Trainning
-The trainning in our program is performed though the command : `FEAT=<feature> run_spkid train_mm`. Where <feature> mus tbe one of the three choices for the feaure vector we implemented:
+The trainning in our program is performed though the command : `FEAT=<feature> run_spkid train_nn`. Where <feature> must be one of the three choices for the feaure vector we implemented:
   - `lp` for Linear Prediction Coeficients.
   - `lpcc` for Linear Prediction Cespstral Coeficients.
   - `mfcc`for Mel Frequency Cepstral Coeficientes.

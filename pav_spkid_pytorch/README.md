@@ -27,12 +27,12 @@ To train the model, we needed more performance than the CPU can offer, as traini
 The problem we faced here was that we are using WSL 2 for programming on Linux, whose support for GPUs is still being developed. For that reason, we had to update to the latest build on development, only available through Windows Insider Program (and on the dev channel). We do not recommend anyone this option currently, as this version may have instabilities and some bugs. For more information about the procedure to install CUDA on WSL, follow this link: https://docs.nvidia.com/cuda/wsl-user-guide/index.html
 
 ## Classification
-The Classification task can be performed with the command `FEAT=<feature> run_spkid test_nn`. Then, the command `FEAT=<feature> run_spkid classerr_nn` must be executed to calculate the error rate of the classification.
+The classification task can be performed with the command `FEAT=<feature> run_spkid test_nn`. Then, the command `FEAT=<feature> run_spkid classerr_nn` must be executed to calculate the error rate of the classification.
 
 With our model we obtained a 1.28% error rate.
 
 ## Verification
-To Perform the verification, the command `FEAT=<feature> run_spkid verify_nn` must be run, followed by the command `FEAT=<feature> run_spkid verif_err_nn` to evaluate the verification results.
+To perform the verification, the command `FEAT=<feature> run_spkid verify_nn` must be run, followed by the command `FEAT=<feature> run_spkid verif_err_nn` to evaluate the verification results.
 
 To implement this option, which was not present in the original `pav_spkid_pytorch` code, a modified version of the classification script was implemented. On this version, instead of returning the maximum of the last layer after the softmax algorithm, the script will return the value corresponding to the probability of a given class [1].
 

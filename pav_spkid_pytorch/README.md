@@ -17,3 +17,16 @@ GOODFELLOW, Ian J.; VINYALS, Oriol; SAXE, Andrew M. Qualitatively characterizing
 
 D. Stathakis (2009) How many hidden layers and nodes?, International Journal of Remote Sensing, 30:8, 2133-2147, DOI: 10.1080/01431160802549278
 
+--
+//Tournament
+YANG, Jiaping; SOH, Chee Kiong. Structural optimization by genetic algorithms with tournament selection. Journal of Computing in Civil Engineering, 1997, vol. 11, no 3, p. 195-200.
+//PSO
+BAI, Qinghai. Analysis of particle swarm optimization algorithm. Computer and information science, 2010, vol. 3, no 1, p. 180.
+
+CHEN, Ching-Yi; YE, Fun. Particle swarm optimization algorithm and its application to clustering analysis. En 2012 Proceedings of 17th Conference on Electrical Power Distribution. IEEE, 2012. p. 789-794.
+
+//ABSO
+AKBARI, Reza; MOHAMMADI, Alireza; ZIARATI, Koorush. A novel bee swarm optimization algorithm for numerical function optimization. Communications in Nonlinear Science and Numerical Simulation, 2010, vol. 15, no 10, p. 3142-3155.
+
+AKBARI, Reza; MOHAMMADI, Alireza; ZIARATI, Koorush. A novel bee swarm optimization algorithm for numerical function optimization. Communications in Nonlinear Science and Numerical Simulation, 2010, vol. 15, no 10, p. 3142-3155.
+

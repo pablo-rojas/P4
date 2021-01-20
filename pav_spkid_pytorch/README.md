@@ -13,11 +13,11 @@ The Training in our program is performed though the command : `FEAT=<feature> ru
 
 Training a neural network is not an easy task, as overfitting and underfitting problems are pretty common [5]. The objective is to design a model that is able to achieve the best results on a given task and that can be later generalized. The problems faced here are those of escaping local minima and dealing with the previously mentioned overfitting and underfitting problems.
 
-For our proposed model, we used 256 hidden layers with 20 feature units per layer. The idea is that a deeper network will allow to use more non-linear information. A deeper or wider network did not improve the results. Actually, as there are more parameters to optimize, it turned out to perform worse. A bigger network also proved to suffer from overfitting, which we could detect on the training results. When overfitting, the loss and accuracy of the training data will shoot up, getting up to near 0 loss and 100% accuracy. At the same time, validation loss will start to grow, and validation accuracy will not have the same 100% value. This means that the networks is "memorizing" the training data, and so not able to properly generalize what it has learned. More on that topic on [6]. An example of overfitting case would look something like this:
+For our proposed model, we used 256 hidden layers with 20 feature units per layer. The idea is that a deeper network will allow to use more non-linear information. A deeper or wider network did not improve the results. Actually, as there are more parameters to optimize, it turned out to perform worse. A bigger network also proved to suffer from overfitting, which we could detect on the training results. When overfitting, the loss and accuracy of the training data will shoot up, getting up to near 0 loss and 100% accuracy. At the same time, validation loss will start to grow, and validation accuracy will not have the same 100% value. This means that the networks is "memorizing" the training data, and so not able to properly generalize what it has learned. More on that topic on [6] and [7]. An example of overfitting case would look something like this:
 
 <img src="log_plot_overfitting.png" align="center">
 
-We performed the training with a batch size of 1000 using the Adam optimizer and a 0.0001 learning rate. The Adam optimizer [7], is one that has proven significant improvements over the Stochastic Gradient Descent optimizer for neural networks. The learning rate was chosen to be a low value, as according to 8], a lower value helps escaping the local minima and tends to be less prone to overfitting. The data we used is that of the SPEECON database [9], which was divided on a 75% training, 12.5% validation and 12.5% test. The results of the training process can be observed on the following plot:
+We performed the training with a batch size of 1000 using the Adam optimizer and a 0.0001 learning rate. The Adam optimizer [8], is one that has proven significant improvements over the Stochastic Gradient Descent optimizer for neural networks. The learning rate was chosen to be a low value, as according to [9], a lower value helps escaping the local minima and tends to be less prone to overfitting. The data we used is that of the SPEECON database [10], which was divided on a 75% training, 12.5% validation and 12.5% test. The results of the training process can be observed on the following plot:
 
 <img src="log_plots.png" align="center">
   
@@ -46,7 +46,7 @@ To perform the training a batch size, learning rate and other fields have to be 
 
 The objective is to find these optimal values, we are in need of an optimization algorithm.
 
-For our requirements, the ones that better adjust are the Particle Swarm Optimization [PSO NUM] and the proposed. We choose the later because as they expose in the paper:
+For our requirements, the ones that better adjust are the Particle Swarm Optimization [11], [12] and the proposed [13]. We choose the later because as they expose in the paper:
 
 *The success of an optimization algorithm depends strongly on the ability of providing a good balance between exploration and exploitation. Exploration refers to generation of new solutions in as yet unseen regions of the search space and exploitation means the concentration of the algorithm’s search at the vicinity of current good solutions. The inability of the algorithm to make a good balance between exploration and exploitation leads to premature convergence, getting trapped in a local optima, and stagnation.*
 
@@ -54,7 +54,7 @@ And the ABSO algorithm excels in these areas due to its particular definition of
 The adjustable parameters of the ABSO algorithm, are as follows:
 
 - Swarm size is set to 30 which 25 of the bees are onlooker and 5 bees are scout.
-- Elite number `n_e  = 5` (selectioned by tournament [TOUR])
+- Elite number `n_e  = 5` (selectioned by tournament [14])
 - `w_bmax=w_emax=2.5`
 - `w_bmin=w_emin=1.5`
 - `iter_max=5000`
@@ -83,28 +83,18 @@ Note that the algorithm might be more interesting a company or organization with
 
 [6] DIETTERICH, Tom. Overfitting and undercomputing in machine learning. ACM computing surveys (CSUR), 1995, vol. 27, no 3, p. 326-327.
 
-[7] KINGMA, Diederik P.; BA, Jimmy. Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980, 2014.
+[7] GOODFELLOW, Ian J.; VINYALS, Oriol; SAXE, Andrew M. Qualitatively characterizing neural network optimization problems. arXiv preprint arXiv:1412.6544, 2014.
 
-[8] M. Bahaghighat, F. Abedini, M. S’hoyan and A. Molnar, "Vision Inspection of Bottle Caps in Drink Factories Using Convolutional Neural Networks," 2019 IEEE 15th International Conference on Intelligent Computer Communication and Processing (ICCP), Cluj-Napoca, Romania, 2019, pp. 381-385, doi: 10.1109/ICCP48234.2019.8959737.
+[8] KINGMA, Diederik P.; BA, Jimmy. Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980, 2014.
 
-[9] ISKRA, Dorota, et al. Speecon-speech databases for consumer devices: Database specification and validation. 2002.
+[9] M. Bahaghighat, F. Abedini, M. S’hoyan and A. Molnar, "Vision Inspection of Bottle Caps in Drink Factories Using Convolutional Neural Networks," 2019 IEEE 15th International Conference on Intelligent Computer Communication and Processing (ICCP), Cluj-Napoca, Romania, 2019, pp. 381-385, doi: 10.1109/ICCP48234.2019.8959737.
 
-[10] GOODFELLOW, Ian J.; VINYALS, Oriol; SAXE, Andrew M. Qualitatively characterizing neural network optimization problems. arXiv preprint arXiv:1412.6544, 2014.
+[10] ISKRA, Dorota, et al. Speecon-speech databases for consumer devices: Database specification and validation. 2002.
 
+[11] BAI, Qinghai. Analysis of particle swarm optimization algorithm. Computer and information science, 2010, vol. 3, no 1, p. 180.
 
---
+[12] CHEN, Ching-Yi; YE, Fun. Particle swarm optimization algorithm and its application to clustering analysis. En 2012 Proceedings of 17th Conference on Electrical Power Distribution. IEEE, 2012. p. 789-794.
 
-//Tournament
+[13] AKBARI, Reza; MOHAMMADI, Alireza; ZIARATI, Koorush. A novel bee swarm optimization algorithm for numerical function optimization. Communications in Nonlinear Science and Numerical Simulation, 2010, vol. 15, no 10, p. 3142-3155.
 
-YANG, Jiaping; SOH, Chee Kiong. Structural optimization by genetic algorithms with tournament selection. Journal of Computing in Civil Engineering, 1997, vol. 11, no 3, p. 195-200.
-
-//PSO
-
-BAI, Qinghai. Analysis of particle swarm optimization algorithm. Computer and information science, 2010, vol. 3, no 1, p. 180.
-
-CHEN, Ching-Yi; YE, Fun. Particle swarm optimization algorithm and its application to clustering analysis. En 2012 Proceedings of 17th Conference on Electrical Power Distribution. IEEE, 2012. p. 789-794.
-
-//ABSO
-
-AKBARI, Reza; MOHAMMADI, Alireza; ZIARATI, Koorush. A novel bee swarm optimization algorithm for numerical function optimization. Communications in Nonlinear Science and Numerical Simulation, 2010, vol. 15, no 10, p. 3142-3155.
-
+[14] YANG, Jiaping; SOH, Chee Kiong. Structural optimization by genetic algorithms with tournament selection. Journal of Computing in Civil Engineering, 1997, vol. 11, no 3, p. 195-200.

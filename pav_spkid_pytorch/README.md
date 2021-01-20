@@ -66,7 +66,7 @@ During the execution two main issues have been encountered.
 
 The size of the neural network. As the algorithm tries new values the size of the network can exceed the total capacity of the GPU memory.
 
-Another encountered problem during the computation, is related to the computation time that takes each bee to train the model and evaluate, due to its duration we have not been able to get a satisfying result. The total time the algorithm takes to finish (with 30 bees and 5000 iterations) is far from reasonable.
+Another encountered problem during the computation, is related to the computation time that takes each bee to train the model and evaluate: due to its duration we have not been able to get a satisfying result. The total time the algorithm takes to finish (with 30 bees and 5000 iterations) is far from reasonable.
 Note that the algorithm might be more interesting a company or organization with bigger infrastructure.
 
 ## Bibliography:

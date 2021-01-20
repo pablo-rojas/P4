@@ -5,6 +5,7 @@ This is an implementation of https://github.com/santi-pdp/pav_spkid_pytorch, The
 ## Optimization
 
 
+
 # Bibliography:
 
 G. Heigold, I. Moreno, S. Bengio and N. Shazeer, "End-to-end text-dependent speaker verification," 2016 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), Shanghai, 2016, pp. 5115-5119, doi: 10.1109/ICASSP.2016.7472652.

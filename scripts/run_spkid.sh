@@ -155,13 +155,13 @@ for cmd in $*; do
        done
 
    elif [[ $cmd == train_nn ]]; then
-        python3 pav_spkid_pytorch/train_nn.py --save_path work/mcp/${FEAT}_${name_exp} --tr_list_file lists/class/all.train --va_list_file lists/class/all_div.val --db_path work/${FEAT} --spk2idx lists/spk2idx.json --ext ${FEAT} --lr 0.00002 --hsize 256 --epoch 100 --in_frames 20 --momentum 0.5
+        python3 pav_spkid_pytorch/train_nn.py --save_path work/mcp/${FEAT}_${name_exp} --tr_list_file $lists/class/all.train --va_list_file $lists/class/all_div.val --db_path work/${FEAT} --spk2idx $lists/spk2idx.json --ext ${FEAT} --lr 0.00002 --hsize 256 --epoch 100 --in_frames 20 --momentum 0.5
 
    elif [[ $cmd == test ]]; then
        (gmm_classify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list  $lists/class/all.test | tee $w/class_${FEAT}_${name_exp}.log) || exit 1
     
    elif [[ $cmd == test_nn ]]; then
-        python3 pav_spkid_pytorch/test_nn.py --te_list_file lists/class/all_div.test --db_path work/${FEAT} --ext ${FEAT} --weights_ckpt work/mcp/${FEAT}_${name_exp}/bestval_e17_weights.ckpt --train_cfg work/mcp/${FEAT}_${name_exp}/train.opts --log_file $w/class_${FEAT}_nn_${name_exp}.log
+        python3 pav_spkid_pytorch/test_nn.py --te_list_file $lists/class/all_div.test --db_path work/${FEAT} --ext ${FEAT} --weights_ckpt work/mcp/${FEAT}_${name_exp}/bestval_e17_weights.ckpt --train_cfg work/mcp/${FEAT}_${name_exp}/train.opts --log_file $w/class_${FEAT}_nn_${name_exp}.log
    
    elif [[ $cmd == classerr ]]; then
        if [[ ! -s $w/class_${FEAT}_${name_exp}.log ]] ; then
@@ -235,6 +235,11 @@ for cmd in $*; do
        compute_$FEAT $final $lists/final/class.test
        (gmm_classify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list  $lists/final/class.test | tee class_test_$FEAT.log) || exit 1
    
+    elif [[ $cmd == finalclass_nn ]]; then
+       compute_$FEAT $final $lists/final/class.test
+       python3 pav_spkid_pytorch/test_nn.py --te_list_file $lists/final/class.test --db_path work/${FEAT} --ext ${FEAT} --weights_ckpt work/mcp/${FEAT}_${name_exp}/bestval_e17_weights.ckpt --train_cfg work/mcp/${FEAT}_${name_exp}/train.opts --log_file $w/class_test_${FEAT}_nn.log
+   
+
    elif [[ $cmd == finalverif ]]; then
        ## @file
 	   # \TODO
@@ -251,6 +256,23 @@ for cmd in $*; do
        perl -ane 'print "$F[0]\t$F[1]\t";
         if ($F[2] > $ENV{thres}) {print "1\tThreshold = $ENV{thres}\n"}
         else {print "0\tThreshold = $ENV{thres}\n"}' $w/finalverif_${FEAT}_${name_exp}.log > verif_test_$FEAT.log
+        
+    elif [[ $cmd == finalverif_nn ]]; then
+       ## @file
+	   # \TODO
+	   # Perform the final test on the speaker verification of the files in spk_ima/sr_test/spk_ver.
+	   # The list of legitimate users is lists/final/verif.users, the list of files to be verified
+	   # is lists/final/verif.test, and the list of users claimed by the test files is
+	   # lists/final/verif.test.candidates
+       compute_$FEAT $final $lists/final/verif.test
+
+       # Pick up only the score threshold selected by the verif_err option
+       export thres=$(fgrep THR: $w/verif_${FEAT}_${name_exp}.res | cut -d: -f 2)
+
+        python3 pav_spkid_pytorch/verify_nn.py --ve_list_file $lists/final/verif.test --ve_cand_list_file $lists/final/verif.test.candidates --db_path work/${FEAT} --ext ${FEAT} --weights_ckpt work/mcp/${FEAT}_${name_exp}/bestval_e17_weights.ckpt --train_cfg work/mcp/${FEAT}_${name_exp}/train.opts --log_file $w/finalverif_${FEAT}_nn.log
+        perl -ane 'print "$F[0]\t$F[1]\t";
+        if ($F[2] > $ENV{thres}) {print "1\tThreshold = $ENV{thres}\n"}
+        else {print "0\tThreshold = $ENV{thres}\n"}' $w/finalverif_${FEAT}_nn.log > verif_test_$FEAT_nn.log
 
    # If the command is not recognize, check if it is the name
    # of a feature and a compute_$FEAT function exists.

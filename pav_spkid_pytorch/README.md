@@ -1,12 +1,12 @@
 # PAV Speaker Classification and Verification with Deep Neural Networks
 
-This is an implementation of https://github.com/santi-pdp/pav_spkid_pytorch, The objective of this project is to implement a speaker identifier using Neural Networks over a previously calculated feature vector. Additionally to the classifier function for which that program was designed, a verification function has been added. Our Neral network works with an input feature vector that can be: 
+This is an implementation of https://github.com/santi-pdp/pav_spkid_pytorch, The objective of this project is to implement a speaker identifier using Neural Networks over a previously calculated feature vector. Additionally to the classifier function for which that program was designed, a verification function has been added. Our neural network works with an input feature vector, desginated under the variable `FEAT` that can be: 
 
   - `lp` for Linear Prediction Coeficients.
   - `lpcc` for Linear Prediction Cespstral Coeficients.
   - `mfcc`for Mel Frequency Cepstral Coeficientes.
   
-Then, with the structure of a Multi Layer Perceptron, and the optimized weights, it can classify a speaker as one of the trained classes or it can verify it's identity. For thes part, the works of [2], [3], [4] and [5].
+Then, with the structure of a Multi Layer Perceptron, and the optimized weights, it can classify a speaker as one of the trained classes or it can verify it's identity. For this part, we have been inspired by the publications of [2], [3], [4] and [5].
   
 ## Trainning
 The Trainning in our program is performed though the command : `FEAT=<feature> run_spkid train_nn`. Where <feature> must be one of the three choices for the feaure vector we implemented.

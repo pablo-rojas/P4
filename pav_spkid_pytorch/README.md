@@ -9,7 +9,7 @@ This is an implementation of https://github.com/santi-pdp/pav_spkid_pytorch. The
 Then, with the structure of a Multi Layer Perceptron, and the optimized weights, it can classify a speaker as one of the trained classes or it can verify it's identity. For this part, we have been inspired by the publications of [1], [2], [3] and [4].
   
 ## Training
-The training in our program is performed though the command : `FEAT=<feature> run_spkid train_nn`. Where <feature> must be one of the three choices for the feature vector we implemented.
+The training in our program is performed though the command : `FEAT=<feature> run_spkid train_nn`. Where `<feature>` must be one of the three choices for the feature vector we implemented.
 
 Training a neural network is not an easy task, as overfitting and underfitting problems are pretty common [5]. The objective is to design a model that is able to achieve the best results on a given task and that can be later generalized. The problems faced here are those of escaping local minima and dealing with the previously mentioned overfitting and underfitting problems.
 

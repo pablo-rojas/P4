@@ -46,7 +46,7 @@ To perform the training a batch size, learning rate and other fields have to be 
 
 The objective is to find these optimal values, we are in need of an optimization algorithm.
 
-For our requirements, the ones that better adjust are the Particle Swarm Optimization [11], [12] and the proposed [13]. We choose the later because as they expose in the paper:
+For our requirements, the ones that better adjust are the Particle Swarm Optimization (PSO) [11], [12] and the proposed Artificial Bee Swarm Optimization algorithm (ABSO) [13]. We choose the later because as they expose in the paper:
 
 *The success of an optimization algorithm depends strongly on the ability of providing a good balance between exploration and exploitation. Exploration refers to generation of new solutions in as yet unseen regions of the search space and exploitation means the concentration of the algorithm’s search at the vicinity of current good solutions. The inability of the algorithm to make a good balance between exploration and exploitation leads to premature convergence, getting trapped in a local optima, and stagnation.*
 

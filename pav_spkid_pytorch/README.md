@@ -17,6 +17,8 @@ GOODFELLOW, Ian J.; VINYALS, Oriol; SAXE, Andrew M. Qualitatively characterizing
 
 D. Stathakis (2009) How many hidden layers and nodes?, International Journal of Remote Sensing, 30:8, 2133-2147, DOI: 10.1080/01431160802549278
 
+M. Bahaghighat, F. Abedini, M. S’hoyan and A. Molnar, "Vision Inspection of Bottle Caps in Drink Factories Using Convolutional Neural Networks," 2019 IEEE 15th International Conference on Intelligent Computer Communication and Processing (ICCP), Cluj-Napoca, Romania, 2019, pp. 381-385, doi: 10.1109/ICCP48234.2019.8959737.
+
 --
 //Tournament
 YANG, Jiaping; SOH, Chee Kiong. Structural optimization by genetic algorithms with tournament selection. Journal of Computing in Civil Engineering, 1997, vol. 11, no 3, p. 195-200.

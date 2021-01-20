@@ -8,7 +8,7 @@ The Trainning in our program is performed though the command : `FEAT=<feature> r
   - `lpcc` for Linear Prediction Cespstral Coeficients.
   - `mfcc`for Mel Frequency Cepstral Coeficientes.
   
-For our proposed model, we used 256 hidden layers with 20 feature units per layer. We performed the trainning with a batch size of 1000 using the Adam optimizer and a 0.0001 learning rate. The results of the trainning process can be observed on the following plot:
+For our proposed model, we used 256 hidden layers with 20 feature units per layer. We performed the trainning with a batch size of 1000 using the Adam optimizer and a 0.0001 learning rate. The data we used is that of the SPEECOn database [1], which was divided on a 75% training, 12.5% validation and 12.5% test. The results of the trainning process can be observed on the following plot:
 
 <img src="log_plots.png" align="center">
   
@@ -34,6 +34,8 @@ On the verification task, our model managed to achive a 0% cost detection score.
 
 
 ## Bibliography:
+
+[1] ISKRA, Dorota, et al. Speecon-speech databases for consumer devices: Database specification and validation. 2002.
 
 G. Heigold, I. Moreno, S. Bengio and N. Shazeer, "End-to-end text-dependent speaker verification," 2016 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), Shanghai, 2016, pp. 5115-5119, doi: 10.1109/ICASSP.2016.7472652.
 

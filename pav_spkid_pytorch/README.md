@@ -37,19 +37,19 @@ On the verification task, our model managed to achive a 0% cost detection score.
 
 [1] ISKRA, Dorota, et al. Speecon-speech databases for consumer devices: Database specification and validation. 2002.
 
-G. Heigold, I. Moreno, S. Bengio and N. Shazeer, "End-to-end text-dependent speaker verification," 2016 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), Shanghai, 2016, pp. 5115-5119, doi: 10.1109/ICASSP.2016.7472652.
+[2] G. Heigold, I. Moreno, S. Bengio and N. Shazeer, "End-to-end text-dependent speaker verification," 2016 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), Shanghai, 2016, pp. 5115-5119, doi: 10.1109/ICASSP.2016.7472652.
 
-Bing Xiang and T. Berger, "Efficient text-independent speaker verification with structural Gaussian mixture models and neural network," in IEEE Transactions on Speech and Audio Processing, vol. 11, no. 5, pp. 447-456, Sept. 2003, doi: 10.1109/TSA.2003.81582
+[3] Bing Xiang and T. Berger, "Efficient text-independent speaker verification with structural Gaussian mixture models and neural network," in IEEE Transactions on Speech and Audio Processing, vol. 11, no. 5, pp. 447-456, Sept. 2003, doi: 10.1109/TSA.2003.81582
 
-D. Snyder, P. Ghahremani, D. Povey, D. Garcia-Romero, Y. Carmiel and S. Khudanpur, "Deep neural network-based speaker embeddings for end-to-end speaker verification," 2016 IEEE Spoken Language Technology Workshop (SLT), San Diego, CA, 2016, pp. 165-170, doi: 10.1109/SLT.2016.7846260.
+[4]D. Snyder, P. Ghahremani, D. Povey, D. Garcia-Romero, Y. Carmiel and S. Khudanpur, "Deep neural network-based speaker embeddings for end-to-end speaker verification," 2016 IEEE Spoken Language Technology Workshop (SLT), San Diego, CA, 2016, pp. 165-170, doi: 10.1109/SLT.2016.7846260.
 
-SNYDER, David, et al. Deep Neural Network Embeddings for Text-Independent Speaker Verification. En Interspeech. 2017. p. 999-1003.
+[5] SNYDER, David, et al. Deep Neural Network Embeddings for Text-Independent Speaker Verification. En Interspeech. 2017. p. 999-1003.
 
-GOODFELLOW, Ian J.; VINYALS, Oriol; SAXE, Andrew M. Qualitatively characterizing neural network optimization problems. arXiv preprint arXiv:1412.6544, 2014.
+[6] GOODFELLOW, Ian J.; VINYALS, Oriol; SAXE, Andrew M. Qualitatively characterizing neural network optimization problems. arXiv preprint arXiv:1412.6544, 2014.
 
-D. Stathakis (2009) How many hidden layers and nodes?, International Journal of Remote Sensing, 30:8, 2133-2147, DOI: 10.1080/01431160802549278
+[7] D. Stathakis (2009) How many hidden layers and nodes?, International Journal of Remote Sensing, 30:8, 2133-2147, DOI: 10.1080/01431160802549278
 
-M. Bahaghighat, F. Abedini, M. S’hoyan and A. Molnar, "Vision Inspection of Bottle Caps in Drink Factories Using Convolutional Neural Networks," 2019 IEEE 15th International Conference on Intelligent Computer Communication and Processing (ICCP), Cluj-Napoca, Romania, 2019, pp. 381-385, doi: 10.1109/ICCP48234.2019.8959737.
+[8] M. Bahaghighat, F. Abedini, M. S’hoyan and A. Molnar, "Vision Inspection of Bottle Caps in Drink Factories Using Convolutional Neural Networks," 2019 IEEE 15th International Conference on Intelligent Computer Communication and Processing (ICCP), Cluj-Napoca, Romania, 2019, pp. 381-385, doi: 10.1109/ICCP48234.2019.8959737.
 
 --
 

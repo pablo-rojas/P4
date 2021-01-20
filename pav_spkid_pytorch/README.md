@@ -3,19 +3,24 @@
 This is an implementation of https://github.com/santi-pdp/pav_spkid_pytorch, The objetcive of this project is to implement a speaker identifier using Neural Networks over a previously calculated feature vector. Additionally to the classifier function for which that program was designed, a verification function has been added.
 
 ## Trainning
-The trainning in our program is performed though the command : `FEAT=<feature> run_spkid train_nn`. Where <feature> must be one of the three choices for the feaure vector we implemented:
+The Trainning in our program is performed though the command : `FEAT=<feature> run_spkid train_nn`. Where <feature> must be one of the three choices for the feaure vector we implemented:
   - `lp` for Linear Prediction Coeficients.
   - `lpcc` for Linear Prediction Cespstral Coeficients.
   - `mfcc`for Mel Frequency Cepstral Coeficientes.
   
-For our proposed model, we used 256 hidden layers with 20 feature units per layer. We performed the trainning with a batch size of 1000 using the Adam optimizer and a 0.0001 learning rate.
+For our proposed model, we used 256 hidden layers with 20 feature units per layer. We performed the trainning with a batch size of 1000 using the Adam optimizer and a 0.0001 learning rate. The results of the trainning process can be observed on the following plot:
+
+<img src="log_plots.png" align="center">
   
 ### CUDA Acceleration
 To train the model, we needed more performance than the CPU can offer, as training these models can take quite a lot of teime, especially when you take on consideration the amount of times you want to perform the training in order the achive the optimal hyperparameters. So, the best solution was to train it on our GPU, a Nvidia RTX 2060. By using the graphics card, we managed to reduce the computing teme between three and four times.
+
 The problem we faced here was that we are using WSL 2 for programming on linux, whose support for GPUs is still being developed. For that reason, we had to update to the latest build on development, only available though Windows Insider Program (and on the dev channel). We do not recommend anyone this option currently, as this version may have instabitlities and some bugs. 
 
 ## Classification
+The Classification task can be performed with the command `FEAT=<feature> run_spkid test_nn`. Then, the command `FEAT=<feature> run_spkid classerr_nn` must be executed to calculate the error rate of the classification.
 
+With our model we obtained a 1.28% error rate.
 
 ## Verification
 

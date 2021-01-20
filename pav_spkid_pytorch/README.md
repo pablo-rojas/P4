@@ -2,11 +2,21 @@
 
 This is an implementation of https://github.com/santi-pdp/pav_spkid_pytorch, The objetcive of this project is to implement a speaker identifier using Neural Networks over a previously calculated feature vector. Additionally to the classifier function for which that program was designed, a verification function has been added.
 
+## Trainning
+
+### CUDA Acceleration
+
+## Classification
+
+## Verification
+
+
+
 ## Optimization
 
 
 
-# Bibliography:
+## Bibliography:
 
 G. Heigold, I. Moreno, S. Bengio and N. Shazeer, "End-to-end text-dependent speaker verification," 2016 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), Shanghai, 2016, pp. 5115-5119, doi: 10.1109/ICASSP.2016.7472652.
 
